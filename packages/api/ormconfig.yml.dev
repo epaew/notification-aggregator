@@ -1,0 +1,25 @@
+# vim: set ft=yaml:
+default:
+  ## create connection
+  type: postgres
+  host: db
+  port: 5432
+  username: postgres
+  password: postgres
+  database: postgres
+
+  ## TypeORM behavior
+  synchronize: true
+  logging: true
+
+  ## place of files
+  entities:
+    - 'src/entity/**/*.ts'
+  migrations:
+    - 'src/migration/**/*.ts'
+  subscribers:
+    - 'src/subscriber/**/*.ts'
+  cli:
+    entitiesDir: src/entity
+    migrationsDir: src/migration
+    subscribersDir: src/subscriber

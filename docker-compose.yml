@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: packages/api/Dockerfile
+    volumes:
+      - .:/app
+      - ./packages/api/ormconfig.yml.dev:/app/packages/api/ormconfig.yml
+      - node_modules_api:/app/packages/api/node_modules
+    ports:
+      - "8080:3000"
+    depends_on:
+      - db
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+volumes:
+  node_modules_api: {}
+  pg_data: {}
