@@ -1,17 +1,34 @@
 import 'reflect-metadata'
 import { ApolloServer, gql } from 'apollo-server-express'
-import { createConnection } from 'typeorm'
+import { BaseEntity, createConnection } from 'typeorm'
 import express from 'express'
+import resolvers from './resolvers'
 
-createConnection().then(async () => {
+createConnection().then(async connection => {
+  BaseEntity.useConnection(connection)
+
   const typeDefs = gql`
+    scalar Date
+
     type Query {
-      hello: String
+      users: [User!]!
+    }
+
+    type User {
+      id: ID!
+      name: String!
+      createdAt: Date!
+      updatedAt: Date!
+    }
+
+    type Mutation {
+      createUser(input: createUserInput): User
+    }
+
+    input createUserInput {
+      name: String!
     }
   `
-  const resolvers = {
-    Query: { hello: () => 'Hello world!' }
-  }
   const apolloServer = new ApolloServer({ typeDefs, resolvers })
 
   // create express app
