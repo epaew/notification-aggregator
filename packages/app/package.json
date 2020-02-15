@@ -2,6 +2,7 @@
   "private": true,
   "name": "app",
   "version": "0.1.0",
+  "main": "__generated__/AppEntry.js",
   "repository": "git@github.com:epaew/notification-aggregator.git",
   "author": "epaew <epaew.333@gmail.com>",
   "license": "MIT",
@@ -9,8 +10,9 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "web": "expo start --web",
-    "start": "react-native start",
-    "test": "jest"
+    "start": "expo start",
+    "test": "jest",
+    "postinstall": "expo-yarn-workspaces postinstall"
   },
   "dependencies": {
     "expo": "^36.0.0",
@@ -28,6 +30,7 @@
     "@types/react": "^16.9.0",
     "@types/react-native": "^0.61.15",
     "babel-preset-expo": "^8.0.0",
+    "expo-yarn-workspaces": "^1.2.1",
     "jest-expo": "^36.0.1",
     "typescript": "^3.6.3"
   },

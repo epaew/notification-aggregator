@@ -1,17 +1,19 @@
 {
-  "name": "app",
+  "name": "Notification Aggregator App",
   "displayName": "app",
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "Notification Aggregator App(dev)",
+    "slug": "notification-aggregator-app-dev",
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
-    "version": "1.0.0",
-    "entryPoint": "node_modules/expo/AppEntry.js",
+    "version": "0.1.0",
     "platforms": [
       "ios",
       "android",
       "web"
-    ]
+    ],
+    "packagerOpts": {
+      "config": "metro.config.js"
+    }
   }
 }

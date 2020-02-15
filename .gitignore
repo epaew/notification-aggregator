@@ -27,6 +27,11 @@ build/
 local.properties
 *.iml
 
+# Expo
+/packages/app/.expo
+/packages/app/__generated__
+/packages/app/web-build
+
 # Node.js
 dist/
 node_modules/
