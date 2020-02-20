@@ -11,7 +11,7 @@
       "apollo-server-express": "^2.10.1",
       "express": "^4.15.4",
       "graphql": "^14.6.0",
-      "pg": "^7.3.0",
+      "pg": "^7.18.2",
       "reflect-metadata": "^0.1.10",
       "typeorm": "^0.2.22"
    },
