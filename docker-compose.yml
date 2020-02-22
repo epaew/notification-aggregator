@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: api/Dockerfile
+    environment:
+      DATABASE_URL: 'postgres://postgres:postgres@db:5432/postgres'
     volumes:
       - .:/app
       - node_modules_api:/app/api/node_modules

@@ -1,13 +1,10 @@
 import { NamingStrategy } from './src/config/NamingStrategy'
 
-const url =
-  process.env.DATABASE_URL || 'postgres://postgres:postgres@db:5432/postgres'
-
 // TODO: want to use `export default` but it does not working...
 module.exports = {
   // create connection
   type: 'postgres',
-  url,
+  url: process.env.DATABASE_URL,
 
   // TypeORM behavior
   synchronize: true,
