@@ -1,11 +1,12 @@
+import { Resolvers } from '../'
 import { User } from '../../entity'
 
-export const resolvers = {
+export const resolvers: Resolvers = {
   Query: {
-    user: async (id: number) => User.findOne(id)
+    user: async (_parent, args) => User.findOne(args)
   },
   Mutation: {
-    createUser: async (_parent: any, args: any) => {
+    createUser: async (_parent, args) => {
       const user = Object.assign(new User(), args.input)
       return user.save()
     }
