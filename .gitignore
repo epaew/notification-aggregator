@@ -36,6 +36,3 @@ local.properties
 dist/
 node_modules/
 yarn-error.log*
-
-# Packages
-/api/ormconfig.yml
