@@ -1,42 +1,21 @@
 import 'reflect-metadata'
-import { ApolloServer, gql } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-express'
 import { BaseEntity, createConnection } from 'typeorm'
 import express from 'express'
-import resolvers from './resolvers'
+import { typeDefs, resolvers } from './graphql'
 
-createConnection().then(async connection => {
+const startApp = async () => {
+  const connection = await createConnection()
   BaseEntity.useConnection(connection)
 
-  const typeDefs = gql`
-    scalar Date
-
-    type Query {
-      users: [User!]!
-    }
-
-    type User {
-      id: ID!
-      name: String!
-      createdAt: Date!
-      updatedAt: Date!
-    }
-
-    type Mutation {
-      createUser(input: createUserInput): User
-    }
-
-    input createUserInput {
-      name: String!
-    }
-  `
-  const apolloServer = new ApolloServer({ typeDefs, resolvers })
-
-  // create express app
   const app = express()
+  const apolloServer = new ApolloServer({ typeDefs, resolvers })
+  const port = process.env.PORT || 3000
   apolloServer.applyMiddleware({ app })
 
-  // start express server
-  app.listen(3000, () => {
-    console.log('Express server has started on port 3000.')
+  app.listen(port, () => {
+    console.log(`Express server has started on port ${port}.`)
   })
-}).catch(error => console.log(error))
+}
+
+startApp()

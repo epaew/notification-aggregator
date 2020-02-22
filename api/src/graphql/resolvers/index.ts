@@ -1,8 +1,8 @@
-import { User } from '../entity'
+import { User } from '../../entity'
 
-export default {
+export const resolvers = {
   Query: {
-    users: async () => User.find()
+    user: async (id: number) => User.findOne(id)
   },
   Mutation: {
     createUser: async (_parent: any, args: any) => {
