@@ -4,7 +4,6 @@ import {
   BeforeInsert,
   Column,
   Entity,
-  getManager,
   Index,
   ManyToOne,
   ManyToMany,
@@ -24,9 +23,7 @@ export class Channel extends BaseEntity {
   @Column()
   name!: string
 
-  @OneToMany(() => Notification, notification => notification.channel, {
-    cascade: true
-  })
+  @OneToMany(() => Notification, notification => notification.channel)
   notifications!: Notification[]
 
   @Index({ unique: true })
@@ -34,7 +31,7 @@ export class Channel extends BaseEntity {
   secret!: string
 
   @ManyToMany(() => User, user => user.subscribedChannels)
-  subscribedUsers!: Notification[]
+  subscribedUsers!: User[]
 
   @ManyToOne(() => User, user => user.createdChannels, { eager: true, nullable: false })
   createdBy!: User
@@ -49,17 +46,8 @@ export class Channel extends BaseEntity {
   async setSecret () {
     const generateSecret = async (): Promise<string> => {
       const secret = Crypto.randomBytes(32).toString('hex')
-      const { count } = await getManager()
-        .createQueryBuilder(Channel, 'c')
-        .select('COUNT(id)', 'count')
-        .where('c.secret = :secret', { secret })
-        .getRawOne()
-      console.log(count)
-      if (count === '0') {
-        return secret
-      } else {
-        return generateSecret()
-      }
+      const count = await Channel.count({ secret })
+      return (count === 0) ? secret : generateSecret()
     }
 
     this.secret = await generateSecret()
