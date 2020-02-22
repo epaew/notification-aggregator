@@ -1,0 +1,25 @@
+scalar Timestamp
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  user(id: ID!): User
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+}
+
+type User {
+  id: ID!
+  name: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+}
+
+input CreateUserInput {
+  name: String!
+}
