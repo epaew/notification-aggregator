@@ -1,14 +1,15 @@
 import { Resolvers } from '../'
-import { User } from '../../entity'
+
+import { createChannel, channels } from './Channel'
+import { createUser, user } from './User'
 
 export const resolvers: Resolvers = {
   Query: {
-    user: async (_parent, args) => User.findOne(args)
+    channels,
+    user
   },
   Mutation: {
-    createUser: async (_parent, args) => {
-      const user = Object.assign(new User(), args.input)
-      return user.save()
-    }
+    createChannel,
+    createUser
   }
 }

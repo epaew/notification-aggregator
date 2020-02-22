@@ -2,30 +2,23 @@ import {
   BaseEntity,
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm'
-
 import { Channel } from '.'
 
 @Entity()
-export class User extends BaseEntity {
+export class Notification extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id!: number
 
-  @Column()
-  name!: string
+  @Column({ type: 'text' })
+  body!: string
 
-  @OneToMany(() => Channel, channel => channel.createdBy)
-  createdChannels!: Channel[]
-
-  @ManyToMany(() => Channel, channel => channel.subscribedUsers)
-  @JoinTable()
-  subscribedChannels!: Channel[]
+  @ManyToOne(() => Channel, channel => channel.notifications, { eager: true, nullable: false })
+  channel!: Channel
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt!: Date

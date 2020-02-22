@@ -1,1 +1,3 @@
-export { User } from './User'
+export * from './Channel'
+export * from './Notification'
+export * from './User'

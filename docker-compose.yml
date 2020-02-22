@@ -5,9 +5,10 @@ services:
     build:
       context: .
       dockerfile: api/Dockerfile
+    environment:
+      DATABASE_URL: 'postgres://postgres:postgres@db:5432/postgres'
     volumes:
       - .:/app
-      - ./api/ormconfig.yml.dev:/app/api/ormconfig.yml
       - node_modules_api:/app/api/node_modules
     ports:
       - "8080:3000"

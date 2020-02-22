@@ -9,7 +9,23 @@ export type Scalars = {
   Boolean: boolean,
   Int: number,
   Float: number,
+  UUID: string,
   Timestamp: Date,
+};
+
+export type Channel = {
+   __typename?: 'Channel',
+  id: Scalars['UUID'],
+  name: Scalars['String'],
+  notifications: Array<Notification>,
+  secret: Scalars['String'],
+  createdAt: Scalars['Timestamp'],
+  createdBy: User,
+  updatedAt: Scalars['Timestamp'],
+};
+
+export type CreateChannelInput = {
+  name: Scalars['String'],
 };
 
 export type CreateUserInput = {
@@ -18,16 +34,37 @@ export type CreateUserInput = {
 
 export type Mutation = {
    __typename?: 'Mutation',
+  createChannel: Channel,
   createUser: User,
+  subscribeChannel: Channel,
+};
+
+export type MutationCreateChannelArgs = {
+  input: CreateChannelInput
 };
 
 export type MutationCreateUserArgs = {
   input: CreateUserInput
 };
 
+export type MutationSubscribeChannelArgs = {
+  channelId: Scalars['UUID']
+};
+
+export type Notification = {
+   __typename?: 'Notification',
+  id: Scalars['ID'],
+  body: Scalars['String'],
+};
+
 export type Query = {
    __typename?: 'Query',
+  channels: Array<Channel>,
+  currentUser?: Maybe<User>,
+  notifications: Array<Notification>,
+  subscribedChannels: Array<Channel>,
   user?: Maybe<User>,
+  users: Array<User>,
 };
 
 export type QueryUserArgs = {
@@ -38,6 +75,7 @@ export type User = {
    __typename?: 'User',
   id: Scalars['ID'],
   name: Scalars['String'],
+  subscribedChannels: Array<Channel>,
   createdAt: Scalars['Timestamp'],
   updatedAt: Scalars['Timestamp'],
 };

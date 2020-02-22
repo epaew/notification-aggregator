@@ -8,7 +8,23 @@ export type Scalars = {
   Boolean: boolean,
   Int: number,
   Float: number,
+  UUID: string,
   Timestamp: Date,
+};
+
+export type Channel = {
+   __typename?: 'Channel',
+  id: Scalars['UUID'],
+  name: Scalars['String'],
+  notifications: Array<Notification>,
+  secret: Scalars['String'],
+  createdAt: Scalars['Timestamp'],
+  createdBy: User,
+  updatedAt: Scalars['Timestamp'],
+};
+
+export type CreateChannelInput = {
+  name: Scalars['String'],
 };
 
 export type CreateUserInput = {
@@ -17,16 +33,37 @@ export type CreateUserInput = {
 
 export type Mutation = {
    __typename?: 'Mutation',
+  createChannel: Channel,
   createUser: User,
+  subscribeChannel: Channel,
+};
+
+export type MutationCreateChannelArgs = {
+  input: CreateChannelInput
 };
 
 export type MutationCreateUserArgs = {
   input: CreateUserInput
 };
 
+export type MutationSubscribeChannelArgs = {
+  channelId: Scalars['UUID']
+};
+
+export type Notification = {
+   __typename?: 'Notification',
+  id: Scalars['ID'],
+  body: Scalars['String'],
+};
+
 export type Query = {
    __typename?: 'Query',
+  channels: Array<Channel>,
+  currentUser?: Maybe<User>,
+  notifications: Array<Notification>,
+  subscribedChannels: Array<Channel>,
   user?: Maybe<User>,
+  users: Array<User>,
 };
 
 export type QueryUserArgs = {
@@ -37,6 +74,7 @@ export type User = {
    __typename?: 'User',
   id: Scalars['ID'],
   name: Scalars['String'],
+  subscribedChannels: Array<Channel>,
   createdAt: Scalars['Timestamp'],
   updatedAt: Scalars['Timestamp'],
 };
@@ -115,11 +153,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>,
-  ID: ResolverTypeWrapper<Scalars['ID']>,
-  User: ResolverTypeWrapper<User>,
+  Channel: ResolverTypeWrapper<Channel>,
+  UUID: ResolverTypeWrapper<Scalars['UUID']>,
   String: ResolverTypeWrapper<Scalars['String']>,
+  Notification: ResolverTypeWrapper<Notification>,
+  ID: ResolverTypeWrapper<Scalars['ID']>,
   Timestamp: ResolverTypeWrapper<Scalars['Timestamp']>,
+  User: ResolverTypeWrapper<User>,
   Mutation: ResolverTypeWrapper<{}>,
+  CreateChannelInput: CreateChannelInput,
   CreateUserInput: CreateUserInput,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 }>;
@@ -127,21 +169,49 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Query: {},
-  ID: Scalars['ID'],
-  User: User,
+  Channel: Channel,
+  UUID: Scalars['UUID'],
   String: Scalars['String'],
+  Notification: Notification,
+  ID: Scalars['ID'],
   Timestamp: Scalars['Timestamp'],
+  User: User,
   Mutation: {},
+  CreateChannelInput: CreateChannelInput,
   CreateUserInput: CreateUserInput,
   Boolean: Scalars['Boolean'],
 }>;
 
+export type ChannelResolvers<ContextType = any, ParentType extends ResolversParentTypes['Channel'] = ResolversParentTypes['Channel']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>,
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  notifications?: Resolver<Array<ResolversTypes['Notification']>, ParentType, ContextType>,
+  secret?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  createdAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
+  createdBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>,
+  updatedAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+}>;
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createChannel?: Resolver<ResolversTypes['Channel'], ParentType, ContextType, RequireFields<MutationCreateChannelArgs, 'input'>>,
   createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>,
+  subscribeChannel?: Resolver<ResolversTypes['Channel'], ParentType, ContextType, RequireFields<MutationSubscribeChannelArgs, 'channelId'>>,
+}>;
+
+export type NotificationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Notification'] = ResolversParentTypes['Notification']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  channels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType>,
+  currentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  notifications?: Resolver<Array<ResolversTypes['Notification']>, ParentType, ContextType>,
+  subscribedChannels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
+  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>,
 }>;
 
 export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {
@@ -151,16 +221,24 @@ export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<Resolvers
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  subscribedChannels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType>,
   createdAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
   updatedAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 }>;
 
+export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['UUID'], any> {
+  name: 'UUID'
+}
+
 export type Resolvers<ContextType = any> = ResolversObject<{
+  Channel?: ChannelResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
+  Notification?: NotificationResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Timestamp?: GraphQLScalarType,
   User?: UserResolvers<ContextType>,
+  UUID?: GraphQLScalarType,
 }>;
 
 /**
