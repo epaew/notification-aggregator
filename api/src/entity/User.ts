@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 
-@Entity('users')
+@Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id!: number
@@ -8,9 +8,9 @@ export class User extends BaseEntity {
   @Column()
   name!: string
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })
+  @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt!: Date
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
   updatedAt!: Date
 }
