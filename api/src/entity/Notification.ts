@@ -1,4 +1,13 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn
+} from 'typeorm'
+import { Channel } from '.'
 
 @Entity()
 export class Notification extends BaseEntity {
@@ -7,6 +16,9 @@ export class Notification extends BaseEntity {
 
   @Column({ type: 'text' })
   body!: string
+
+  @ManyToOne(() => Channel, channel => channel.notifications, { eager: true, nullable: false })
+  channel!: Channel
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt!: Date

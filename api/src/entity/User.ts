@@ -1,4 +1,16 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn
+} from 'typeorm'
+
+import { Channel } from '.'
 
 @Entity()
 export class User extends BaseEntity {
@@ -7,6 +19,13 @@ export class User extends BaseEntity {
 
   @Column()
   name!: string
+
+  @OneToMany(() => Channel, channel => channel.createdBy)
+  createdChannels!: Channel[]
+
+  @ManyToMany(() => Channel, channel => channel.subscribedUsers)
+  @JoinTable()
+  subscribedChannels!: Channel[]
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt!: Date
