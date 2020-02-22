@@ -36,4 +36,5 @@ generates:
 config:
   scalars:
     ID: number
+    UUID: string
     Timestamp: Date
