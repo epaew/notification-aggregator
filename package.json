@@ -6,13 +6,13 @@
   "author": "epaew <epaew.333@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "eslint": "eslint -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx packages/",
-    "eslint:fix": "eslint --fix -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx packages/"
+    "eslint": "eslint -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx api/src app/src web/src",
+    "eslint:fix": "eslint --fix -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx api/src app/src web/src"
   },
   "workspaces": [
-    "packages/api",
-    "packages/app",
-    "packages/web"
+    "api",
+    "app",
+    "web"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.20.0",

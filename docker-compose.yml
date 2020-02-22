@@ -4,11 +4,11 @@ services:
   api:
     build:
       context: .
-      dockerfile: packages/api/Dockerfile
+      dockerfile: api/Dockerfile
     volumes:
       - .:/app
-      - ./packages/api/ormconfig.yml.dev:/app/packages/api/ormconfig.yml
-      - node_modules_api:/app/packages/api/node_modules
+      - ./api/ormconfig.yml.dev:/app/api/ormconfig.yml
+      - node_modules_api:/app/api/node_modules
     ports:
       - "8080:3000"
     depends_on:

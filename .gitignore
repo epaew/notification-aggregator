@@ -28,9 +28,9 @@ local.properties
 *.iml
 
 # Expo
-/packages/app/.expo
-/packages/app/__generated__
-/packages/app/web-build
+/app/.expo
+/app/__generated__
+/app/web-build
 
 # Node.js
 dist/
@@ -38,4 +38,4 @@ node_modules/
 yarn-error.log*
 
 # Packages
-/packages/api/ormconfig.yml
+/api/ormconfig.yml

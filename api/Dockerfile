@@ -1,8 +1,8 @@
 FROM node:12-alpine
 
-WORKDIR /app/packages/api
+WORKDIR /app/api
 
-ADD packages/api/package.json .
+ADD api/package.json .
 ADD yarn.lock .
 
 RUN yarn install
