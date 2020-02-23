@@ -1,28 +1,19 @@
 import React from 'react'
-import { apolloClient, useGetChannelsQuery } from './src/graphql'
+import { apolloClient } from './src/graphql'
 import { ApolloProvider } from '@apollo/react-hooks'
-import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-export default function App () {
-  const { data, loading } = useGetChannelsQuery({
-    client: apolloClient
-  })
+import { FirebaseProvider } from './src/contexts'
+import MainContainer from './src/MainContainer'
 
+export default () => {
   return (
-    <ApolloProvider client={apolloClient}>
-      <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <Text>{!loading && JSON.stringify(data?.channels, null, 2)}</Text>
-      </View>
-    </ApolloProvider>
+    <SafeAreaProvider>
+      <FirebaseProvider>
+        <ApolloProvider client={apolloClient}>
+          <MainContainer />
+        </ApolloProvider>
+      </FirebaseProvider>
+    </SafeAreaProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
