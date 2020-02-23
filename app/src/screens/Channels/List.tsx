@@ -1,8 +1,8 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import { useGetChannelsQuery } from '../graphql'
+import { useGetChannelsQuery } from '../../graphql'
 
-export const ChannelsScreen: React.FC = () => {
+export const ListChannelScreen: React.FC = () => {
   const { data, loading } = useGetChannelsQuery()
 
   return (
