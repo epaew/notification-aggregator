@@ -54,6 +54,7 @@ export type Notification = {
    __typename?: 'Notification',
   id: Scalars['ID'],
   body: Scalars['String'],
+  createdAt: Scalars['Timestamp'],
 };
 
 export type Query = {
@@ -202,6 +203,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 export type NotificationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Notification'] = ResolversParentTypes['Notification']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   body?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  createdAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 }>;
 

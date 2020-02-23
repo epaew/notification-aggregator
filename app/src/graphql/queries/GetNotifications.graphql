@@ -1,0 +1,7 @@
+query GetNotifications {
+  notifications {
+    id
+    body
+    createdAt
+  }
+}
