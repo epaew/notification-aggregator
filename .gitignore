@@ -36,3 +36,6 @@ local.properties
 dist/
 node_modules/
 yarn-error.log*
+
+# Secrets
+app/firebase.json
