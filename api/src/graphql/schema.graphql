@@ -34,6 +34,7 @@ type Channel {
 type Notification {
   id: ID!
   body: String!
+  createdAt: Timestamp!
 }
 
 type User {

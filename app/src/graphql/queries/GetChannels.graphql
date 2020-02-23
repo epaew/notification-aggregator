@@ -1,0 +1,8 @@
+query GetChannels {
+  channels {
+    id
+    name
+    secret
+    createdAt
+  }
+}
