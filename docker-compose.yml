@@ -7,8 +7,10 @@ services:
       dockerfile: api/Dockerfile
     environment:
       DATABASE_URL: 'postgres://postgres:postgres@db:5432/postgres'
+      GOOGLE_APPLICATION_CREDENTIALS: /app/api/firebase-admin.json
     volumes:
-      - .:/app
+      - ./api:/app/api
+      - ./tsconfig.json:/app/tsconfig.json
       - node_modules_api:/app/api/node_modules
     ports:
       - "8080:3000"
