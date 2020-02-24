@@ -1,5 +1,5 @@
 import React from 'react'
-import { auth, FirebaseUser, githubProvider } from '../lib/firebase'
+import { auth, FirebaseUser, signIn, signOut } from '../lib/firebase'
 
 type FirebaseContextType = {
   loading: boolean
@@ -18,15 +18,15 @@ const FirebaseContext = React.createContext<FirebaseContextType>(initialFirebase
 export const FirebaseConsumer = FirebaseContext.Consumer
 export const FirebaseProvider: React.FC = ({ children }) => {
   const [context, setContext] = React.useState<FirebaseContextType>(initialFirebaseContext)
-  const signInWithGithub = React.useCallback(async () => auth.signInWithRedirect(githubProvider), [])
-  const signOut = React.useCallback(async () => auth.signOut(), [])
+  const signInWithGithubCallback = React.useCallback(signIn.withGithub, [])
+  const signOutCallback = React.useCallback(signOut, [])
 
   React.useEffect(() => {
     auth.onAuthStateChanged(result => setContext({
       loading: false,
       currentAuth: result,
-      signInWithGithub,
-      signOut
+      signInWithGithub: signInWithGithubCallback,
+      signOut: signOutCallback
     }))
   }, [])
 
