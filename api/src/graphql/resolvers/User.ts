@@ -1,17 +1,5 @@
+import { QueryResolvers } from '../'
 import { User } from '../../entity'
 
-export const createUser = async (_: any, args: { input: any }) => {
-  const user = Object.assign(new User(), args.input)
-  return user.save()
-}
-
-export const currentUser = async (_parent: any, _args: any, { user }: { user: any }) => {
-  const firstUser = await User.findOne()
-  if (!firstUser) { return firstUser }
-
-  return {
-    ...firstUser,
-    name: JSON.stringify(user)
-  }
-}
-export const user = async (_: any, args: { id: number }) => User.findOne(args)
+export const currentUser: QueryResolvers['currentUser'] = async (_parent, _args, { user }) => User.findOne({ id: user.uid })
+export const user: QueryResolvers['user'] = async (_parent, args) => User.findOne(args)

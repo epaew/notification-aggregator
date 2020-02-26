@@ -1,7 +1,7 @@
 import { Resolvers } from '../'
 
 import { createChannel, channels } from './Channel'
-import { createUser, currentUser, user } from './User'
+import { currentUser, user } from './User'
 
 export const resolvers: Resolvers = {
   Query: {
@@ -10,7 +10,6 @@ export const resolvers: Resolvers = {
     user
   },
   Mutation: {
-    createChannel,
-    createUser
+    createChannel
   }
 }
