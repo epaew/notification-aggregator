@@ -1,0 +1,50 @@
+scalar Timestamp
+scalar UUID
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  channels: [Channel!]!
+  currentUser: User
+  notifications: [Notification!]!
+  subscribedChannels: [Channel!]!
+  user(id: String!): User
+  users: [User!]!
+}
+
+type Mutation {
+  createChannel(input: CreateChannelInput!): Channel!
+  subscribeChannel(channelId: UUID!): Channel!
+}
+
+type Channel {
+  id: UUID!
+  name: String!
+  notifications: [Notification!]!
+  secret: String!
+  createdAt: Timestamp!
+  createdBy: User!
+  updatedAt: Timestamp!
+}
+
+type Notification {
+  id: ID!
+  body: String!
+  createdAt: Timestamp!
+}
+
+type User {
+  id: String!
+  displayName: String!
+  photoURL: String
+  subscribedChannels: [Channel!]!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+}
+
+input CreateChannelInput {
+  name: String!
+}

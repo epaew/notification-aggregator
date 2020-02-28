@@ -6,15 +6,22 @@
   "author": "epaew <epaew.333@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "eslint": "eslint -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx packages/",
-    "eslint:fix": "eslint --fix -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx packages/"
+    "eslint": "eslint -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx api/src app/src web/src",
+    "eslint:fix": "eslint --fix -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx api/src app/src web/src",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "workspaces": [
-    "packages/api",
-    "packages/app",
-    "packages/web"
+    "api",
+    "app",
+    "web"
   ],
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.12.2",
+    "@graphql-codegen/introspection": "^1.12.2",
+    "@graphql-codegen/typescript": "^1.12.2",
+    "@graphql-codegen/typescript-operations": "^1.12.2",
+    "@graphql-codegen/typescript-react-apollo": "^1.12.2",
+    "@graphql-codegen/typescript-resolvers": "^1.12.2",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.21.0",
     "eslint": "^6.8.0",
@@ -24,6 +31,7 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "expo-cli": "^3.13.1"
+    "expo-cli": "^3.13.1",
+    "graphql": "^14.6.0"
   }
 }

@@ -27,10 +27,16 @@ build/
 local.properties
 *.iml
 
+# Expo
+/app/.expo
+/app/__generated__
+/app/web-build
+
 # Node.js
 dist/
 node_modules/
 yarn-error.log*
 
-# Packages
-/packages/api/ormconfig.yml
+# Secrets
+app/firebase.json
+api/firebase-admin.json

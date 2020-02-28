@@ -1,0 +1,40 @@
+overwrite: true
+schema: ./api/src/graphql/schema.graphql
+generates:
+  app/src/graphql/generated.tsx:
+    documents:
+      - ./app/src/graphql/mutations/**/*.graphql"
+      - ./app/src/graphql/queries/**/*.graphql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withComponent: false
+      withHooks: true
+      withHOC: false
+    hooks:
+      afterOneFileWrite:
+        - eslint --fix
+  api/src/graphql/generated.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+    config:
+      maybeValue: T | undefined
+      useIndexSignature: true
+    hooks:
+      afterOneFileWrite:
+        - eslint --fix
+  # web/src/graphql/generated.tsx:
+  #   documents:
+  #     - ./web/src/graphql/mutations/**/*.graphql"
+  #     - ./web/src/graphql/queries/**/*.graphql
+  graphql.schema.json:
+    plugins:
+      - introspection
+config:
+  scalars:
+    ID: number
+    UUID: string
+    Timestamp: Date

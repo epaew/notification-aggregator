@@ -1,0 +1,9 @@
+env:
+  node: true
+extends:
+  - standard-react
+overrides:
+  - files:
+      - '**/*.tsx'
+    rules:
+      react/prop-types: off
