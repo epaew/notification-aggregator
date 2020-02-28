@@ -5,7 +5,7 @@ import {
   JoinTable,
   ManyToMany,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm'
@@ -14,11 +14,14 @@ import { Channel } from '.'
 
 @Entity()
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
-  id!: number
+  @PrimaryColumn()
+  id!: string
 
   @Column()
-  name!: string
+  displayName!: string
+
+  @Column()
+  photoURL!: string
 
   @OneToMany(() => Channel, channel => channel.createdBy)
   createdChannels!: Channel[]

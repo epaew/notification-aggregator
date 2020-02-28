@@ -28,23 +28,14 @@ export type CreateChannelInput = {
   name: Scalars['String'],
 };
 
-export type CreateUserInput = {
-  name: Scalars['String'],
-};
-
 export type Mutation = {
    __typename?: 'Mutation',
   createChannel: Channel,
-  createUser: User,
   subscribeChannel: Channel,
 };
 
 export type MutationCreateChannelArgs = {
   input: CreateChannelInput
-};
-
-export type MutationCreateUserArgs = {
-  input: CreateUserInput
 };
 
 export type MutationSubscribeChannelArgs = {
@@ -69,13 +60,14 @@ export type Query = {
 };
 
 export type QueryUserArgs = {
-  id: Scalars['ID']
+  id: Scalars['String']
 };
 
 export type User = {
    __typename?: 'User',
-  id: Scalars['ID'],
-  name: Scalars['String'],
+  id: Scalars['String'],
+  displayName: Scalars['String'],
+  photoURL?: Maybe<Scalars['String']>,
   subscribedChannels: Array<Channel>,
   createdAt: Scalars['Timestamp'],
   updatedAt: Scalars['Timestamp'],
@@ -102,14 +94,14 @@ export type GetNotificationsQuery = (
 );
 
 export type GetUserQueryVariables = {
-  id: Scalars['ID']
+  id: Scalars['String']
 };
 
 export type GetUserQuery = (
   { __typename?: 'Query' }
   & { user: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'name'>
+    & Pick<User, 'id' | 'displayName' | 'photoURL'>
   )> }
 );
 
@@ -183,10 +175,11 @@ export type GetNotificationsQueryHookResult = ReturnType<typeof useGetNotificati
 export type GetNotificationsLazyQueryHookResult = ReturnType<typeof useGetNotificationsLazyQuery>;
 export type GetNotificationsQueryResult = ApolloReactCommon.QueryResult<GetNotificationsQuery, GetNotificationsQueryVariables>;
 export const GetUserDocument = gql`
-    query GetUser($id: ID!) {
+    query GetUser($id: String!) {
   user(id: $id) {
     id
-    name
+    displayName
+    photoURL
   }
 }
     `

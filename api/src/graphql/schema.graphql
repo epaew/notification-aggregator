@@ -11,13 +11,12 @@ type Query {
   currentUser: User
   notifications: [Notification!]!
   subscribedChannels: [Channel!]!
-  user(id: ID!): User
+  user(id: String!): User
   users: [User!]!
 }
 
 type Mutation {
   createChannel(input: CreateChannelInput!): Channel!
-  createUser(input: CreateUserInput!): User!
   subscribeChannel(channelId: UUID!): Channel!
 }
 
@@ -38,17 +37,14 @@ type Notification {
 }
 
 type User {
-  id: ID!
-  name: String!
+  id: String!
+  displayName: String!
+  photoURL: String
   subscribedChannels: [Channel!]!
   createdAt: Timestamp!
   updatedAt: Timestamp!
 }
 
 input CreateChannelInput {
-  name: String!
-}
-
-input CreateUserInput {
   name: String!
 }

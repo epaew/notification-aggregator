@@ -27,23 +27,14 @@ export type CreateChannelInput = {
   name: Scalars['String'],
 };
 
-export type CreateUserInput = {
-  name: Scalars['String'],
-};
-
 export type Mutation = {
    __typename?: 'Mutation',
   createChannel: Channel,
-  createUser: User,
   subscribeChannel: Channel,
 };
 
 export type MutationCreateChannelArgs = {
   input: CreateChannelInput
-};
-
-export type MutationCreateUserArgs = {
-  input: CreateUserInput
 };
 
 export type MutationSubscribeChannelArgs = {
@@ -68,13 +59,14 @@ export type Query = {
 };
 
 export type QueryUserArgs = {
-  id: Scalars['ID']
+  id: Scalars['String']
 };
 
 export type User = {
    __typename?: 'User',
-  id: Scalars['ID'],
-  name: Scalars['String'],
+  id: Scalars['String'],
+  displayName: Scalars['String'],
+  photoURL?: Maybe<Scalars['String']>,
   subscribedChannels: Array<Channel>,
   createdAt: Scalars['Timestamp'],
   updatedAt: Scalars['Timestamp'],
@@ -163,7 +155,6 @@ export type ResolversTypes = ResolversObject<{
   User: ResolverTypeWrapper<User>,
   Mutation: ResolverTypeWrapper<{}>,
   CreateChannelInput: CreateChannelInput,
-  CreateUserInput: CreateUserInput,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 }>;
 
@@ -179,7 +170,6 @@ export type ResolversParentTypes = ResolversObject<{
   User: User,
   Mutation: {},
   CreateChannelInput: CreateChannelInput,
-  CreateUserInput: CreateUserInput,
   Boolean: Scalars['Boolean'],
 }>;
 
@@ -196,7 +186,6 @@ export type ChannelResolvers<ContextType = any, ParentType extends ResolversPare
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createChannel?: Resolver<ResolversTypes['Channel'], ParentType, ContextType, RequireFields<MutationCreateChannelArgs, 'input'>>,
-  createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>,
   subscribeChannel?: Resolver<ResolversTypes['Channel'], ParentType, ContextType, RequireFields<MutationSubscribeChannelArgs, 'channelId'>>,
 }>;
 
@@ -221,8 +210,9 @@ export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<Resolvers
 }
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  photoURL?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   subscribedChannels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType>,
   createdAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
   updatedAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
