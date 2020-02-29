@@ -5,12 +5,13 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useFirebase } from '../../contexts'
 
 export const SigninScreen: React.FC = () => {
-  const { signInAsAnonymous, signInWithGithub } = useFirebase()
+  const { signInAsAnonymous, signInWithGithub, signInWithGoogle } = useFirebase()
 
   return (
     <SafeAreaView>
       {__DEV__ && <Button title='Anonymous' onPress={signInAsAnonymous} />}
       <Button title='GitHub' onPress={signInWithGithub} />
+      <Button title='Google' onPress={signInWithGoogle} />
     </SafeAreaView>
   )
 }
