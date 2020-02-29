@@ -18,6 +18,7 @@ export type Channel = {
   id: Scalars['UUID'],
   name: Scalars['String'],
   notifications: Array<Notification>,
+  public: Scalars['Boolean'],
   secret: Scalars['String'],
   createdAt: Scalars['Timestamp'],
   createdBy: User,
@@ -26,6 +27,7 @@ export type Channel = {
 
 export type CreateChannelInput = {
   name: Scalars['String'],
+  public: Scalars['Boolean'],
 };
 
 export type Mutation = {

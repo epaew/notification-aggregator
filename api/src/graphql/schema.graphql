@@ -24,6 +24,7 @@ type Channel {
   id: UUID!
   name: String!
   notifications: [Notification!]!
+  public: Boolean!
   secret: String!
   createdAt: Timestamp!
   createdBy: User!
@@ -47,4 +48,5 @@ type User {
 
 input CreateChannelInput {
   name: String!
+  public: Boolean!
 }
