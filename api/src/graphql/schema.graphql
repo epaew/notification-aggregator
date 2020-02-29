@@ -1,18 +1,13 @@
 scalar Timestamp
 scalar UUID
 
-schema {
-  query: Query
-  mutation: Mutation
-}
-
 type Query {
-  channels: [Channel!]!
+  channels(name: String, offset: Int, limit: Int): [Channel!]!
   currentUser: User
-  notifications: [Notification!]!
-  subscribedChannels: [Channel!]!
+  notifications(startAfter: Timestamp, limit: Int): [Notification!]!
+  subscribedChannels(offset: Int, limit: Int): [Channel!]!
   user(id: String!): User
-  users: [User!]!
+  users(name: String, offset: Int, limit: Int): [User!]!
 }
 
 type Mutation {
@@ -23,7 +18,7 @@ type Mutation {
 type Channel {
   id: UUID!
   name: String!
-  notifications: [Notification!]!
+  notifications(startAfter: Timestamp, limit: Int): [Notification!]!
   public: Boolean!
   secret: String!
   createdAt: Timestamp!
@@ -41,7 +36,8 @@ type User {
   id: String!
   displayName: String!
   photoURL: String
-  subscribedChannels: [Channel!]!
+  createdChannels(offset: Int, limit: Int): [Channel!]!
+  subscribedChannels(offset: Int, limit: Int): [Channel!]!
   createdAt: Timestamp!
   updatedAt: Timestamp!
 }

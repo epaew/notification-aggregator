@@ -25,6 +25,11 @@ export type Channel = {
   updatedAt: Scalars['Timestamp'],
 };
 
+export type ChannelNotificationsArgs = {
+  startAfter?: Maybe<Scalars['Timestamp']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
 export type CreateChannelInput = {
   name: Scalars['String'],
   public: Scalars['Boolean'],
@@ -61,8 +66,30 @@ export type Query = {
   users: Array<User>,
 };
 
+export type QueryChannelsArgs = {
+  name?: Maybe<Scalars['String']>,
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
+export type QueryNotificationsArgs = {
+  startAfter?: Maybe<Scalars['Timestamp']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
+export type QuerySubscribedChannelsArgs = {
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
 export type QueryUserArgs = {
   id: Scalars['String']
+};
+
+export type QueryUsersArgs = {
+  name?: Maybe<Scalars['String']>,
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
 };
 
 export type User = {
@@ -70,9 +97,20 @@ export type User = {
   id: Scalars['String'],
   displayName: Scalars['String'],
   photoURL?: Maybe<Scalars['String']>,
+  createdChannels: Array<Channel>,
   subscribedChannels: Array<Channel>,
   createdAt: Scalars['Timestamp'],
   updatedAt: Scalars['Timestamp'],
+};
+
+export type UserCreatedChannelsArgs = {
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
+export type UserSubscribedChannelsArgs = {
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
 };
 
 export type GetChannelsQueryVariables = {};
