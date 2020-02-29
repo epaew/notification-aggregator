@@ -1,3 +1,5 @@
+import { Like } from 'typeorm'
+
 import { QueryResolvers } from '../'
 import { User } from '../../entity'
 
@@ -14,3 +16,11 @@ export const currentUser: QueryResolvers['currentUser'] = async (_parent, _args,
   return user.save()
 }
 export const user: QueryResolvers['user'] = async (_parent, args) => User.findOne(args)
+export const users: QueryResolvers['users'] = async (_parent, { name, offset, limit }) => {
+  return User.find({
+    where: name ? { displayName: Like(`%${name}%`) } : undefined,
+    order: { displayName: 'ASC' },
+    skip: offset,
+    take: limit
+  })
+}
