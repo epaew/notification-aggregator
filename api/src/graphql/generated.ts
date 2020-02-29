@@ -24,6 +24,11 @@ export type Channel = {
   updatedAt: Scalars['Timestamp'],
 };
 
+export type ChannelNotificationsArgs = {
+  startAfter?: Maybe<Scalars['Timestamp']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
 export type CreateChannelInput = {
   name: Scalars['String'],
   public: Scalars['Boolean'],
@@ -60,8 +65,30 @@ export type Query = {
   users: Array<User>,
 };
 
+export type QueryChannelsArgs = {
+  name?: Maybe<Scalars['String']>,
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
+export type QueryNotificationsArgs = {
+  startAfter?: Maybe<Scalars['Timestamp']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
+export type QuerySubscribedChannelsArgs = {
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
 export type QueryUserArgs = {
   id: Scalars['String']
+};
+
+export type QueryUsersArgs = {
+  name?: Maybe<Scalars['String']>,
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
 };
 
 export type User = {
@@ -69,9 +96,20 @@ export type User = {
   id: Scalars['String'],
   displayName: Scalars['String'],
   photoURL?: Maybe<Scalars['String']>,
+  createdChannels: Array<Channel>,
   subscribedChannels: Array<Channel>,
   createdAt: Scalars['Timestamp'],
   updatedAt: Scalars['Timestamp'],
+};
+
+export type UserCreatedChannelsArgs = {
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
+export type UserSubscribedChannelsArgs = {
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -148,12 +186,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>,
+  String: ResolverTypeWrapper<Scalars['String']>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
   Channel: ResolverTypeWrapper<Channel>,
   UUID: ResolverTypeWrapper<Scalars['UUID']>,
-  String: ResolverTypeWrapper<Scalars['String']>,
+  Timestamp: ResolverTypeWrapper<Scalars['Timestamp']>,
   Notification: ResolverTypeWrapper<Notification>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
-  Timestamp: ResolverTypeWrapper<Scalars['Timestamp']>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   User: ResolverTypeWrapper<User>,
   Mutation: ResolverTypeWrapper<{}>,
@@ -163,12 +202,13 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Query: {},
+  String: Scalars['String'],
+  Int: Scalars['Int'],
   Channel: Channel,
   UUID: Scalars['UUID'],
-  String: Scalars['String'],
+  Timestamp: Scalars['Timestamp'],
   Notification: Notification,
   ID: Scalars['ID'],
-  Timestamp: Scalars['Timestamp'],
   Boolean: Scalars['Boolean'],
   User: User,
   Mutation: {},
@@ -178,7 +218,7 @@ export type ResolversParentTypes = ResolversObject<{
 export type ChannelResolvers<ContextType = any, ParentType extends ResolversParentTypes['Channel'] = ResolversParentTypes['Channel']> = ResolversObject<{
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  notifications?: Resolver<Array<ResolversTypes['Notification']>, ParentType, ContextType>,
+  notifications?: Resolver<Array<ResolversTypes['Notification']>, ParentType, ContextType, ChannelNotificationsArgs>,
   public?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   secret?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   createdAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
@@ -200,12 +240,12 @@ export type NotificationResolvers<ContextType = any, ParentType extends Resolver
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  channels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType>,
+  channels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType, QueryChannelsArgs>,
   currentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  notifications?: Resolver<Array<ResolversTypes['Notification']>, ParentType, ContextType>,
-  subscribedChannels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType>,
+  notifications?: Resolver<Array<ResolversTypes['Notification']>, ParentType, ContextType, QueryNotificationsArgs>,
+  subscribedChannels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType, QuerySubscribedChannelsArgs>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>,
-  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>,
+  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType, QueryUsersArgs>,
 }>;
 
 export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {
@@ -216,7 +256,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   photoURL?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  subscribedChannels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType>,
+  createdChannels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType, UserCreatedChannelsArgs>,
+  subscribedChannels?: Resolver<Array<ResolversTypes['Channel']>, ParentType, ContextType, UserSubscribedChannelsArgs>,
   createdAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
   updatedAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
