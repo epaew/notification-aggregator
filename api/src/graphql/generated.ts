@@ -17,6 +17,7 @@ export type Channel = {
   id: Scalars['UUID'],
   name: Scalars['String'],
   notifications: Array<Notification>,
+  public: Scalars['Boolean'],
   secret: Scalars['String'],
   createdAt: Scalars['Timestamp'],
   createdBy: User,
@@ -25,6 +26,7 @@ export type Channel = {
 
 export type CreateChannelInput = {
   name: Scalars['String'],
+  public: Scalars['Boolean'],
 };
 
 export type Mutation = {
@@ -152,10 +154,10 @@ export type ResolversTypes = ResolversObject<{
   Notification: ResolverTypeWrapper<Notification>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Timestamp: ResolverTypeWrapper<Scalars['Timestamp']>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   User: ResolverTypeWrapper<User>,
   Mutation: ResolverTypeWrapper<{}>,
   CreateChannelInput: CreateChannelInput,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -167,16 +169,17 @@ export type ResolversParentTypes = ResolversObject<{
   Notification: Notification,
   ID: Scalars['ID'],
   Timestamp: Scalars['Timestamp'],
+  Boolean: Scalars['Boolean'],
   User: User,
   Mutation: {},
   CreateChannelInput: CreateChannelInput,
-  Boolean: Scalars['Boolean'],
 }>;
 
 export type ChannelResolvers<ContextType = any, ParentType extends ResolversParentTypes['Channel'] = ResolversParentTypes['Channel']> = ResolversObject<{
   id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   notifications?: Resolver<Array<ResolversTypes['Notification']>, ParentType, ContextType>,
+  public?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   secret?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   createdAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>,
   createdBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>,

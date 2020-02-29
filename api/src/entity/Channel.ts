@@ -23,6 +23,9 @@ export class Channel extends BaseEntity {
   @Column()
   name!: string
 
+  @Column({ default: false })
+  public!: boolean
+
   @OneToMany(() => Notification, notification => notification.channel)
   notifications!: Notification[]
 
