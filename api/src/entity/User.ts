@@ -20,7 +20,7 @@ export class User extends BaseEntity {
   @Column()
   displayName!: string
 
-  @Column()
+  @Column({ nullable: true })
   photoURL!: string
 
   @OneToMany(() => Channel, channel => channel.createdBy)
