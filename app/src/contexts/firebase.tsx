@@ -4,12 +4,14 @@ import { auth, FirebaseUser, signIn, signOut } from '../lib/firebase'
 type FirebaseContextType = {
   loading: boolean
   currentAuth: FirebaseUser
+  signInAsAnonymous: any
   signInWithGithub: any
   signOut: any
 }
 const initialFirebaseContext = {
   loading: true,
   currentAuth: null,
+  signInAsAnonymous: null,
   signInWithGithub: null,
   signOut: null
 }
@@ -18,6 +20,7 @@ const FirebaseContext = React.createContext<FirebaseContextType>(initialFirebase
 export const FirebaseConsumer = FirebaseContext.Consumer
 export const FirebaseProvider: React.FC = ({ children }) => {
   const [context, setContext] = React.useState<FirebaseContextType>(initialFirebaseContext)
+  const signInAsAnonymousCallback = React.useCallback(signIn.asAnonymous, [])
   const signInWithGithubCallback = React.useCallback(signIn.withGithub, [])
   const signOutCallback = React.useCallback(signOut, [])
 
@@ -25,6 +28,7 @@ export const FirebaseProvider: React.FC = ({ children }) => {
     auth.onAuthStateChanged(result => setContext({
       loading: false,
       currentAuth: result,
+      signInAsAnonymous: signInAsAnonymousCallback,
       signInWithGithub: signInWithGithubCallback,
       signOut: signOutCallback
     }))
