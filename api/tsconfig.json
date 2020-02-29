@@ -10,7 +10,6 @@
     "experimentalDecorators": true
   },
   "include": [
-    "ormconfig.ts",
     "src"
   ]
 }
