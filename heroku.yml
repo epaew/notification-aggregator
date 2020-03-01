@@ -4,7 +4,7 @@ setup:
 build:
   docker:
     web:
-      dockerfile: Dockerfile.heroku
+      dockerfile: Dockerfile.api
       target: api
 release:
   image: web

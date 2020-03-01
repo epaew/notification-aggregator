@@ -1,16 +1,23 @@
 # vim: set ft=dockerfile:
 
-FROM node:12-alpine as builder
+FROM node:12-alpine as base
 
 WORKDIR /app/api
-
 COPY api/package.json .
+COPY yarn.lock .
+
+RUN yarn install
+CMD ["yarn", "start:watch"]
+
+
+FROM base as builder
+
 COPY api/src ./src
 COPY api/tsconfig.json .
 COPY tsconfig.json ../
-COPY yarn.lock .
 
-RUN yarn install && yarn tsc --sourceMap false
+RUN yarn tsc --sourceMap false
+
 
 FROM node:12-alpine as api
 
