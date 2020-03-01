@@ -22,7 +22,8 @@ const startApp = async () => {
       try {
         const user = await auth.verifyIdToken(token.replace('Bearer ', ''))
         return { req, res, user }
-      } catch {
+      } catch (e) {
+        console.error(e)
         throw new AuthenticationError('Invalid token')
       }
     }
