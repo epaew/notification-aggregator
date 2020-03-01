@@ -26,6 +26,9 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
+    "migration:generate": "ts-node node_modules/typeorm/cli.js migration:generate",
+    "migration:revert": "ts-node node_modules/typeorm/cli.js migration:revert",
+    "migration:run": "ts-node node_modules/typeorm/cli.js migration:run",
     "start": "nodemon src/index.ts"
   }
 }

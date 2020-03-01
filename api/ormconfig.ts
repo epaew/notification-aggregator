@@ -7,12 +7,12 @@ module.exports = {
   url: process.env.DATABASE_URL,
 
   // TypeORM behavior
-  synchronize: true,
+  synchronize: false,
   logging: true,
 
   // place of files
   entities: [
-    'src/entity/**/*.ts'
+    'src/entity/index.ts'
   ],
   migrations: [
     'src/migration/**/*.ts'
