@@ -6,9 +6,10 @@
   "author": "epaew <epaew.333@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "codegen": "graphql-codegen --config codegen.yml",
     "eslint": "eslint -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx api/src app/src web/src",
     "eslint:fix": "eslint --fix -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx api/src app/src web/src",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "tsc": "false"
   },
   "workspaces": [
     "api",
