@@ -1,6 +1,7 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { Text } from 'react-native-elements'
 
 const styles = StyleSheet.create({
   container: {
