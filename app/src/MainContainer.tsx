@@ -2,8 +2,9 @@ import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 
-import { useFirebase } from './contexts'
 import { AuthenticationStack, ChannelStack, NotificationStack, LoadingScreen } from './screens'
+import { DrawerContent } from './components/DrawerContent'
+import { useFirebase } from './contexts'
 
 export type DrawerParamList = {
   Channels: undefined
@@ -27,7 +28,7 @@ export default () => {
   } else {
     return (
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName='Notifications' drawerType='slide'>
+        <Drawer.Navigator initialRouteName='Notifications' drawerType='slide' drawerContent={DrawerContent}>
           <Drawer.Screen name='Notifications' component={NotificationStack} />
           <Drawer.Screen name='Channels' component={ChannelStack} />
         </Drawer.Navigator>
