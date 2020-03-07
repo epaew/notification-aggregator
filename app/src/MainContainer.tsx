@@ -3,9 +3,15 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 
 import { useFirebase } from './contexts'
-import { AuthenticationStack, ChannelStack, HomeScreen, LoadingScreen } from './screens'
+import { AuthenticationStack, ChannelStack, NotificationStack, LoadingScreen } from './screens'
 
-const Drawer = createDrawerNavigator()
+export type DrawerParamList = {
+  Channels: undefined
+  Notifications: undefined
+  Users: undefined
+  Preference: undefined
+}
+const Drawer = createDrawerNavigator<DrawerParamList>()
 
 export default () => {
   const { loading, currentAuth } = useFirebase()
@@ -21,8 +27,8 @@ export default () => {
   } else {
     return (
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName='Home' drawerType='slide'>
-          <Drawer.Screen name='Home' component={HomeScreen} />
+        <Drawer.Navigator initialRouteName='Notifications' drawerType='slide'>
+          <Drawer.Screen name='Notifications' component={NotificationStack} />
           <Drawer.Screen name='Channels' component={ChannelStack} />
         </Drawer.Navigator>
       </NavigationContainer>
