@@ -1,7 +1,9 @@
 import React from 'react'
+import { Button, Text } from 'react-native-elements'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet } from 'react-native'
-import { Text } from 'react-native-elements'
+
+import { useFirebase } from '../../contexts'
 
 const styles = StyleSheet.create({
   container: {
@@ -12,10 +14,13 @@ const styles = StyleSheet.create({
   }
 })
 
-export const LoadingScreen: React.FC = () => {
+export const ListNotificationScreen: React.FC = () => {
+  const { signOut } = useFirebase()
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Now Loading...</Text>
+      <Text>Open up App.tsx to start working on your app!</Text>
+      <Button title='Sign Out' onPress={signOut} />
     </SafeAreaView>
   )
 }
