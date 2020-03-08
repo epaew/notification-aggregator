@@ -12,7 +12,7 @@ const theme: Theme = {
     buttonStyle: {
       borderRadius: 30,
       margin: 7,
-      minWidth: 200,
+      minWidth: 300,
       padding: 14
     },
     titleStyle: {

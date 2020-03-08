@@ -1,7 +1,6 @@
 import React from 'react'
-import { Button, Divider, Text } from 'react-native-elements'
+import { Button, Card, Divider, Text } from 'react-native-elements'
 import { KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 import { AuthenticationForm } from '../../components/Authentication/Form'
@@ -11,6 +10,7 @@ import { useFirebase } from '../../contexts'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     justifyContent: 'center'
   },
   title: {
@@ -26,9 +26,9 @@ export const SigninScreen: React.FC<Props> = ({ navigation }) => {
   const { signIn: handleSignIn } = useFirebase()
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <ScrollView bounces={false}>
+    <KeyboardAvoidingView behavior='padding' style={styles.container}>
+      <ScrollView bounces={false}>
+        <Card>
           <Text h3 style={styles.title}>Welcome</Text>
           <AuthenticationForm buttonProps={{ title: 'Sign In', onSubmit: handleSignIn.withEmail }} />
           <Divider />
@@ -38,8 +38,8 @@ export const SigninScreen: React.FC<Props> = ({ navigation }) => {
           <Divider />
           */}
           <Button title='Sign Up' type='clear' onPress={() => navigation.push('Signup')} />
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        </Card>
+      </ScrollView>
+    </KeyboardAvoidingView>
   )
 }
