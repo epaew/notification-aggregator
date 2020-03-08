@@ -1,7 +1,9 @@
 import React from 'react'
 import { Card, Icon, Text } from 'react-native-elements'
 import { ScrollView, StyleSheet, View } from 'react-native'
+import { StackNavigationProp } from '@react-navigation/stack'
 
+import { ChannelStackParamList } from '.'
 import { useGetChannelsQuery } from '../../graphql'
 
 const styles = StyleSheet.create({
@@ -18,7 +20,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export const ListChannelScreen: React.FC = () => {
+type Props = {
+  navigation: StackNavigationProp<ChannelStackParamList>
+}
+
+export const ListChannelScreen: React.FC<Props> = ({ navigation }) => {
   const { data, loading } = useGetChannelsQuery()
 
   return (
@@ -36,7 +42,7 @@ export const ListChannelScreen: React.FC = () => {
         name='add'
         iconStyle={styles.addIcon}
         containerStyle={styles.addIconContainer}
-        onPress={() => {}}
+        onPress={() => navigation.push('CreateChannel')}
       />
     </View>
   )
