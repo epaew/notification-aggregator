@@ -1,8 +1,11 @@
 import React from 'react'
-import { Button, Divider, Input, SocialIcon, Text } from 'react-native-elements'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Button, Divider, Text } from 'react-native-elements'
 import { KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { StackNavigationProp } from '@react-navigation/stack'
 
+import { AuthenticationForm } from '../../components/Authentication/Form'
+import { AuthenticationStackParamList } from '.'
 import { useFirebase } from '../../contexts'
 
 const styles = StyleSheet.create({
@@ -15,7 +18,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export const SigninScreen: React.FC = () => {
+type Props = {
+  navigation: StackNavigationProp<AuthenticationStackParamList>
+}
+
+export const SigninScreen: React.FC<Props> = ({ navigation }) => {
   const { signIn: handleSignIn } = useFirebase()
 
   return (
@@ -23,19 +30,14 @@ export const SigninScreen: React.FC = () => {
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <ScrollView bounces={false}>
           <Text h3 style={styles.title}>Welcome</Text>
-          <Input
-            placeholder='Email'
-            keyboardType='email-address'
-          />
-          <Input
-            placeholder='Password'
-            secureTextEntry
-          />
-          <Button title='Sign In' />
+          <AuthenticationForm buttonProps={{ title: 'Sign In', onSubmit: handleSignIn.withEmail }} />
           <Divider />
+          {/*
           <SocialIcon button title='Google' type='google' />
           <SocialIcon button title='GitHub' type='github' onPress={handleSignIn.withGithub} />
-          {__DEV__ && <Button title='Anonymous' type='clear' onPress={handleSignIn.asAnonymous} />}
+          <Divider />
+          */}
+          <Button title='Sign Up' type='clear' onPress={() => navigation.push('Signup')} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
