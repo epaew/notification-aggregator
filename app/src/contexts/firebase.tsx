@@ -1,36 +1,35 @@
 import React from 'react'
-import { auth, FirebaseUser, signIn, signOut } from '../lib/firebase'
+import { auth, FirebaseUser, FirebaseUserCredential, SignInWithEmailProps, signUpWithEmail, signIn, signOut } from '../lib/firebase'
 
 type FirebaseContextType = {
   loading: boolean
   currentAuth: FirebaseUser
-  signInAsAnonymous: any
-  signInWithGithub: any
-  signOut: any
+  signUpWithEmail: (props: SignInWithEmailProps) => Promise<FirebaseUserCredential>
+  signIn: {
+    asAnonymous: () => Promise<FirebaseUserCredential>
+    withEmail: (props: SignInWithEmailProps) => Promise<FirebaseUserCredential>
+    withGithub: () => Promise<void>
+  }
+  signOut: () => Promise<void>
 }
 const initialFirebaseContext = {
   loading: true,
   currentAuth: null,
-  signInAsAnonymous: null,
-  signInWithGithub: null,
-  signOut: null
+  signUpWithEmail,
+  signIn,
+  signOut
 }
 const FirebaseContext = React.createContext<FirebaseContextType>(initialFirebaseContext)
 
 export const FirebaseConsumer = FirebaseContext.Consumer
 export const FirebaseProvider: React.FC = ({ children }) => {
   const [context, setContext] = React.useState<FirebaseContextType>(initialFirebaseContext)
-  const signInAsAnonymousCallback = React.useCallback(signIn.asAnonymous, [])
-  const signInWithGithubCallback = React.useCallback(signIn.withGithub, [])
-  const signOutCallback = React.useCallback(signOut, [])
 
   React.useEffect(() => {
     auth.onAuthStateChanged(result => setContext({
+      ...context,
       loading: false,
-      currentAuth: result,
-      signInAsAnonymous: signInAsAnonymousCallback,
-      signInWithGithub: signInWithGithubCallback,
-      signOut: signOutCallback
+      currentAuth: result
     }))
   }, [])
 

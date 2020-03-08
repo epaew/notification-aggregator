@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 })
 
 export const SigninScreen: React.FC = () => {
-  const { signInAsAnonymous, signInWithGithub } = useFirebase()
+  const { signIn: handleSignIn } = useFirebase()
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -34,8 +34,8 @@ export const SigninScreen: React.FC = () => {
           <Button title='Sign In' />
           <Divider />
           <SocialIcon button title='Google' type='google' />
-          <SocialIcon button title='GitHub' type='github' onPress={signInWithGithub} />
-          {__DEV__ && <Button type='clear' title='Anonymous' onPress={signInAsAnonymous} />}
+          <SocialIcon button title='GitHub' type='github' onPress={handleSignIn.withGithub} />
+          {__DEV__ && <Button title='Anonymous' type='clear' onPress={handleSignIn.asAnonymous} />}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
