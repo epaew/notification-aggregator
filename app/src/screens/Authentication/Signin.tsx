@@ -1,13 +1,16 @@
 import React from 'react'
-import { Button, Divider, Input, SocialIcon, Text } from 'react-native-elements'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Button, Card, Divider, Text } from 'react-native-elements'
 import { KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native'
+import { StackNavigationProp } from '@react-navigation/stack'
 
+import { AuthenticationForm } from '../../components/Authentication/Form'
+import { AuthenticationStackParamList } from '.'
 import { useFirebase } from '../../contexts'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     justifyContent: 'center'
   },
   title: {
@@ -15,29 +18,28 @@ const styles = StyleSheet.create({
   }
 })
 
-export const SigninScreen: React.FC = () => {
-  const { signInAsAnonymous, signInWithGithub } = useFirebase()
+type Props = {
+  navigation: StackNavigationProp<AuthenticationStackParamList>
+}
+
+export const SigninScreen: React.FC<Props> = ({ navigation }) => {
+  const { signIn: handleSignIn } = useFirebase()
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <ScrollView bounces={false}>
+    <KeyboardAvoidingView behavior='padding' style={styles.container}>
+      <ScrollView bounces={false}>
+        <Card>
           <Text h3 style={styles.title}>Welcome</Text>
-          <Input
-            placeholder='Email'
-            keyboardType='email-address'
-          />
-          <Input
-            placeholder='Password'
-            secureTextEntry
-          />
-          <Button title='Sign In' />
+          <AuthenticationForm buttonProps={{ title: 'Sign In', onSubmit: handleSignIn.withEmail }} />
           <Divider />
+          {/*
           <SocialIcon button title='Google' type='google' />
-          <SocialIcon button title='GitHub' type='github' onPress={signInWithGithub} />
-          {__DEV__ && <Button type='clear' title='Anonymous' onPress={signInAsAnonymous} />}
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          <SocialIcon button title='GitHub' type='github' onPress={handleSignIn.withGithub} />
+          <Divider />
+          */}
+          <Button title='Sign Up' type='clear' onPress={() => navigation.push('Signup')} />
+        </Card>
+      </ScrollView>
+    </KeyboardAvoidingView>
   )
 }
