@@ -1,9 +1,10 @@
 import React from 'react'
-import { Avatar, AvatarProps, Text } from 'react-native-elements'
+import { Avatar, AvatarProps, ListItem, Text } from 'react-native-elements'
 import { DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer'
 import { View } from 'react-native'
 
 import { DrawerItemList } from './DrawerItemList'
+import { useGetCurrentUserQuery } from '../graphql'
 import { useFirebase } from '../contexts'
 
 const ProfileSummary: React.FC = () => {
@@ -13,8 +14,15 @@ const ProfileSummary: React.FC = () => {
     rounded: true
   }
 
-  const { currentAuth } = useFirebase()
-  const uri = currentAuth?.photoURL
+  const { data, error, loading } = useGetCurrentUserQuery()
+
+  if (loading) return null
+  if (error) {
+    console.error(error)
+    return <Text>{error.message}</Text>
+  }
+
+  const uri = data?.currentUser?.photoURL
   if (uri) {
     avatarProps.source = { uri }
   } else {
@@ -22,19 +30,25 @@ const ProfileSummary: React.FC = () => {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center', paddingBottom: 14 }}>
       <Avatar {...avatarProps} />
-      <Text>{currentAuth?.displayName}</Text>
-      <Text>{currentAuth?.email}</Text>
+      <Text>{data?.currentUser?.displayName}</Text>
     </View>
   )
 }
 
+const SignOutListItem: React.FC = () => {
+  const { signOut } = useFirebase()
+
+  return <ListItem rightIcon={{ name: 'exit-to-app' }} title='Sign Out' onPress={signOut} />
+}
+
 export const DrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView {...props} bounces={false}>
       <ProfileSummary />
       <DrawerItemList {...props} />
+      <SignOutListItem />
     </DrawerContentScrollView>
   )
 }
