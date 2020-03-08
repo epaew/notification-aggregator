@@ -1,0 +1,8 @@
+mutation CreateChannel($name: String!, $public: Boolean!) {
+  createChannel(input: {
+    name: $name
+    public: $public
+  }) {
+    id
+  }
+}

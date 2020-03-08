@@ -113,6 +113,19 @@ export type UserSubscribedChannelsArgs = {
   limit?: Maybe<Scalars['Int']>
 };
 
+export type CreateChannelMutationVariables = {
+  name: Scalars['String'],
+  public: Scalars['Boolean']
+};
+
+export type CreateChannelMutation = (
+  { __typename?: 'Mutation' }
+  & { createChannel: (
+    { __typename?: 'Channel' }
+    & Pick<Channel, 'id'>
+  ) }
+);
+
 export type GetChannelsQueryVariables = {};
 
 export type GetChannelsQuery = (
@@ -155,6 +168,39 @@ export type GetUserQuery = (
   )> }
 );
 
+export const CreateChannelDocument = gql`
+    mutation CreateChannel($name: String!, $public: Boolean!) {
+  createChannel(input: {name: $name, public: $public}) {
+    id
+  }
+}
+    `
+export type CreateChannelMutationFn = ApolloReactCommon.MutationFunction<CreateChannelMutation, CreateChannelMutationVariables>;
+
+/**
+ * __useCreateChannelMutation__
+ *
+ * To run a mutation, you first call `useCreateChannelMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateChannelMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createChannelMutation, { data, loading, error }] = useCreateChannelMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      public: // value for 'public'
+ *   },
+ * });
+ */
+export function useCreateChannelMutation (baseOptions?: ApolloReactHooks.MutationHookOptions<CreateChannelMutation, CreateChannelMutationVariables>) {
+  return ApolloReactHooks.useMutation<CreateChannelMutation, CreateChannelMutationVariables>(CreateChannelDocument, baseOptions)
+}
+export type CreateChannelMutationHookResult = ReturnType<typeof useCreateChannelMutation>;
+export type CreateChannelMutationResult = ApolloReactCommon.MutationResult<CreateChannelMutation>;
+export type CreateChannelMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateChannelMutation, CreateChannelMutationVariables>;
 export const GetChannelsDocument = gql`
     query GetChannels {
   channels {
