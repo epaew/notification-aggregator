@@ -3,7 +3,7 @@ schema: ./api/src/graphql/schema.graphql
 generates:
   app/src/graphql/generated.tsx:
     documents:
-      - ./app/src/graphql/mutations/**/*.graphql"
+      - ./app/src/graphql/mutations/**/*.graphql
       - ./app/src/graphql/queries/**/*.graphql
     plugins:
       - typescript
