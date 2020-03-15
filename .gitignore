@@ -39,4 +39,4 @@ yarn-error.log*
 
 # Secrets
 app/firebase.json
-api/firebase-admin.json
+web/firebase-admin.json

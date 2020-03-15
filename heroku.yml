@@ -4,8 +4,8 @@ setup:
 build:
   docker:
     web:
-      dockerfile: Dockerfile.api
-      target: api
+      dockerfile: Dockerfile.web
+      target: web
 release:
   image: web
   command:
