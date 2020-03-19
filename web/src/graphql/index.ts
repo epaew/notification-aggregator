@@ -9,7 +9,7 @@ export const typeDefs = gql`
   ${fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8')}
 `
 
-type ContextType = {
+interface ContextType {
   user: {
     uid: string
     name?: string

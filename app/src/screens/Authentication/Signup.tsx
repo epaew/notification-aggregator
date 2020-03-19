@@ -23,8 +23,12 @@ export const SignupScreen: React.FC = () => {
     <KeyboardAvoidingView behavior='padding' style={styles.container}>
       <ScrollView bounces={false}>
         <Card>
-          <Text h4 style={styles.title}>Sign up with email and password</Text>
-          <AuthenticationForm buttonProps={{ title: 'Sign Up', onSubmit: signUpWithEmail }} />
+          <Text h4 style={styles.title}>
+            Sign up with email and password
+          </Text>
+          <AuthenticationForm
+            buttonProps={{ title: 'Sign Up', onSubmit: signUpWithEmail }}
+          />
         </Card>
       </ScrollView>
     </KeyboardAvoidingView>

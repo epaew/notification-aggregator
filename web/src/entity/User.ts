@@ -23,10 +23,16 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   photoURL!: string
 
-  @OneToMany(() => Channel, channel => channel.createdBy)
+  @OneToMany(
+    () => Channel,
+    channel => channel.createdBy
+  )
   createdChannels!: Channel[]
 
-  @ManyToMany(() => Channel, channel => channel.subscribedUsers)
+  @ManyToMany(
+    () => Channel,
+    channel => channel.subscribedUsers
+  )
   @JoinTable()
   subscribedChannels!: Channel[]
 

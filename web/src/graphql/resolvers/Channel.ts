@@ -3,11 +3,14 @@ import { FindConditions, Like } from 'typeorm'
 import { Channel, User } from '../../entity'
 import { QueryResolvers, MutationResolvers } from '../'
 
-export const channels: QueryResolvers['channels'] = async (_parent, { name, offset, limit }) => {
+export const channels: QueryResolvers['channels'] = async (
+  _parent,
+  { name, offset, limit }
+) => {
   const where: FindConditions<Channel> = { public: true }
   if (name) where.name = Like(`%${name}%`)
 
-  return Channel.find({
+  return await Channel.find({
     where,
     order: { name: 'ASC' },
     skip: offset,
@@ -15,8 +18,12 @@ export const channels: QueryResolvers['channels'] = async (_parent, { name, offs
   })
 }
 
-export const createChannel: MutationResolvers['createChannel'] = async (_parent, args, { user }) => {
+export const createChannel: MutationResolvers['createChannel'] = async (
+  _parent,
+  args,
+  { user }
+) => {
   const channel = Object.assign(new Channel(), args.input)
   channel.createdBy = await User.findOneOrFail({ id: user.uid })
-  return channel.save()
+  return await channel.save()
 }

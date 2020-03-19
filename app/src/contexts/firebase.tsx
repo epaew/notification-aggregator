@@ -1,10 +1,20 @@
 import React from 'react'
-import { auth, FirebaseUser, FirebaseUserCredential, SignInWithEmailProps, signUpWithEmail, signIn, signOut } from '../lib/firebase'
+import {
+  auth,
+  FirebaseUser,
+  FirebaseUserCredential,
+  SignInWithEmailProps,
+  signUpWithEmail,
+  signIn,
+  signOut
+} from '../lib/firebase'
 
-type FirebaseContextType = {
+interface FirebaseContextType {
   loading: boolean
   currentAuth: FirebaseUser
-  signUpWithEmail: (props: SignInWithEmailProps) => Promise<FirebaseUserCredential>
+  signUpWithEmail: (
+    props: SignInWithEmailProps
+  ) => Promise<FirebaseUserCredential>
   signIn: {
     asAnonymous: () => Promise<FirebaseUserCredential>
     withEmail: (props: SignInWithEmailProps) => Promise<FirebaseUserCredential>
@@ -19,18 +29,24 @@ const initialFirebaseContext = {
   signIn,
   signOut
 }
-const FirebaseContext = React.createContext<FirebaseContextType>(initialFirebaseContext)
+const FirebaseContext = React.createContext<FirebaseContextType>(
+  initialFirebaseContext
+)
 
 export const FirebaseConsumer = FirebaseContext.Consumer
 export const FirebaseProvider: React.FC = ({ children }) => {
-  const [context, setContext] = React.useState<FirebaseContextType>(initialFirebaseContext)
+  const [context, setContext] = React.useState<FirebaseContextType>(
+    initialFirebaseContext
+  )
 
   React.useEffect(() => {
-    auth.onAuthStateChanged(result => setContext({
-      ...context,
-      loading: false,
-      currentAuth: result
-    }))
+    auth.onAuthStateChanged(result =>
+      setContext({
+        ...context,
+        loading: false,
+        currentAuth: result
+      })
+    )
   }, [])
 
   return (
