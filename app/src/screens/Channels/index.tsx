@@ -8,7 +8,10 @@ const Stack = createStackNavigator()
 
 export const ChannelStack: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName='Channels' screenOptions={{ header: createHeader() }}>
+    <Stack.Navigator
+      initialRouteName='Channels'
+      screenOptions={{ header: createHeader() }}
+    >
       <Stack.Screen name='Channels' component={ListChannelScreen} />
       {/* <Stack.Screen name='CreateChannel' component={} /> */}
       {/* <Stack.Screen name='EditChannel' component={} /> */}

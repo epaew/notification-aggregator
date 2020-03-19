@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   }
 })
 
-type Props = {
+interface Props {
   navigation: StackNavigationProp<AuthenticationStackParamList>
 }
 
@@ -29,15 +29,23 @@ export const SigninScreen: React.FC<Props> = ({ navigation }) => {
     <KeyboardAvoidingView behavior='padding' style={styles.container}>
       <ScrollView bounces={false}>
         <Card>
-          <Text h3 style={styles.title}>Welcome</Text>
-          <AuthenticationForm buttonProps={{ title: 'Sign In', onSubmit: handleSignIn.withEmail }} />
+          <Text h3 style={styles.title}>
+            Welcome
+          </Text>
+          <AuthenticationForm
+            buttonProps={{ title: 'Sign In', onSubmit: handleSignIn.withEmail }}
+          />
           <Divider />
           {/*
           <SocialIcon button title='Google' type='google' />
           <SocialIcon button title='GitHub' type='github' onPress={handleSignIn.withGithub} />
           <Divider />
           */}
-          <Button title='Sign Up' type='clear' onPress={() => navigation.push('Signup')} />
+          <Button
+            title='Sign Up'
+            type='clear'
+            onPress={() => navigation.push('Signup')}
+          />
         </Card>
       </ScrollView>
     </KeyboardAvoidingView>

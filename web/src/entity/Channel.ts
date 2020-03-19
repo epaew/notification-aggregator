@@ -26,17 +26,27 @@ export class Channel extends BaseEntity {
   @Column({ default: false })
   public!: boolean
 
-  @OneToMany(() => Notification, notification => notification.channel)
+  @OneToMany(
+    () => Notification,
+    notification => notification.channel
+  )
   notifications!: Notification[]
 
   @Index({ unique: true })
   @Column()
   secret!: string
 
-  @ManyToMany(() => User, user => user.subscribedChannels)
+  @ManyToMany(
+    () => User,
+    user => user.subscribedChannels
+  )
   subscribedUsers!: User[]
 
-  @ManyToOne(() => User, user => user.createdChannels, { eager: true, nullable: false })
+  @ManyToOne(
+    () => User,
+    user => user.createdChannels,
+    { eager: true, nullable: false }
+  )
   createdBy!: User
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
@@ -46,11 +56,11 @@ export class Channel extends BaseEntity {
   updatedAt!: Date
 
   @BeforeInsert()
-  async setSecret () {
+  async setSecret() {
     const generateSecret = async (): Promise<string> => {
       const secret = Crypto.randomBytes(32).toString('hex')
       const count = await Channel.count({ secret })
-      return (count === 0) ? secret : generateSecret()
+      return count === 0 ? secret : await generateSecret()
     }
 
     this.secret = await generateSecret()

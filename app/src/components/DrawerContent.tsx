@@ -1,6 +1,9 @@
 import React from 'react'
 import { Avatar, AvatarProps, ListItem, Text } from 'react-native-elements'
-import { DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer'
+import {
+  DrawerContentComponentProps,
+  DrawerContentScrollView
+} from '@react-navigation/drawer'
 import { View } from 'react-native'
 
 import { DrawerItemList } from './DrawerItemList'
@@ -40,10 +43,16 @@ const ProfileSummary: React.FC = () => {
 const SignOutListItem: React.FC = () => {
   const { signOut } = useFirebase()
 
-  return <ListItem rightIcon={{ name: 'exit-to-app' }} title='Sign Out' onPress={signOut} />
+  return (
+    <ListItem
+      rightIcon={{ name: 'exit-to-app' }}
+      title='Sign Out'
+      onPress={signOut}
+    />
+  )
 }
 
-export const DrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
+export const DrawerContent: React.FC<DrawerContentComponentProps> = props => {
   return (
     <DrawerContentScrollView {...props} bounces={false}>
       <ProfileSummary />

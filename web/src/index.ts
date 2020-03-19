@@ -27,7 +27,7 @@ const startApp = async () => {
       }
     }
   })
-  const port = process.env.PORT || 3000
+  const port = process.env.PORT ?? 3000
 
   const { url } = await server.listen({ port, path: '/api' })
   console.log(`Express server has started on ${url}.`)

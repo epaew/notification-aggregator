@@ -8,7 +8,10 @@ const Stack = createStackNavigator()
 
 export const NotificationStack: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName='Notifications' screenOptions={{ header: createHeader() }}>
+    <Stack.Navigator
+      initialRouteName='Notifications'
+      screenOptions={{ header: createHeader() }}
+    >
       <Stack.Screen name='Notifications' component={ListNotificationScreen} />
       {/* <Stack.Screen name='ShowNotification' component={} /> */}
     </Stack.Navigator>
