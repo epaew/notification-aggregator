@@ -29,7 +29,7 @@ const startApp = async (): Promise<void> => {
       }
     }
   })
-  const port = process.env.PORT || 3000
+  const port = process.env.PORT ?? 3000
   apolloServer.applyMiddleware({ app })
 
   app.listen(port, () => {
@@ -37,4 +37,4 @@ const startApp = async (): Promise<void> => {
   })
 }
 
-startApp().catch(() => {})
+startApp().catch(error => console.log(error))
