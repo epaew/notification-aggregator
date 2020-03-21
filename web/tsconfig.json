@@ -2,12 +2,18 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "lib": [
-      "es5",
-      "es6"
+      "esnext",
+      "esnext.asynciterable",
+      "dom"
     ],
     "outDir": "./dist",
+    "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "types": [
+      "@types/node",
+      "@nuxt/types",
+      "@nuxtjs/vuetify"
+    ]
   },
   "include": [
     "src"
