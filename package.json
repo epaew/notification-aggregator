@@ -20,7 +20,7 @@
     "@graphql-codegen/introspection": "^1.12.2",
     "@graphql-codegen/typescript": "^1.12.2",
     "@graphql-codegen/typescript-operations": "^1.13.0",
-    "@graphql-codegen/typescript-react-apollo": "^1.12.2",
+    "@graphql-codegen/typescript-react-apollo": "^1.13.1",
     "@graphql-codegen/typescript-resolvers": "^1.12.2",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.21.0",
