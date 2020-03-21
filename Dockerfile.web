@@ -1,35 +1,30 @@
 # vim: set ft=dockerfile:
 
-FROM node:12-alpine as base
+FROM node:12-alpine as builder
 
 WORKDIR /app/web
-COPY web/package.json .
+COPY web ./
+COPY tsconfig.json ../
 COPY yarn.lock .
 
-RUN yarn install --frozen-lockfile
-CMD ["yarn", "start:watch"]
-
-
-FROM base as builder
-
-COPY web/src ./src
-COPY web/nuxt.config.ts web/ormconfig.ts web/tsconfig.json ./
-COPY tsconfig.json ../
-
-RUN yarn build
-RUN yarn tsc nuxt.config.ts
+RUN yarn install && yarn build
 
 FROM node:12-alpine as web
 
 ENV NODE_ENV=production
 WORKDIR /app/web
 
+COPY --from=builder /app/tsconfig.json ../
 COPY --from=builder /app/web/.nuxt .nuxt
+COPY --from=builder /app/web/src src
+COPY --from=builder \
+	/app/web/nuxt.config.ts \
+	/app/web/ormconfig.ts \
+	/app/web/package.json \
+	/app/web/tsconfig.json \
+	/app/web/yarn.lock \
+	./
 # COPY --from=builder /app/web/src/graphql/schema.graphql dist/graphql/
-COPY --from=builder /app/web/nuxt.config.js /app/web/package.json /app/web/yarn.lock ./
-COPY --from=builder /app/web/src/front/static ./src/front/static
-
-COPY web/ormconfig.heroku.js ormconfig.js
 
 RUN yarn install
 

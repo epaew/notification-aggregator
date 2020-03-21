@@ -9,4 +9,4 @@ build:
 release:
   image: web
   command:
-    - yarn run typeorm migration:run
+    - yarn run migration:run
