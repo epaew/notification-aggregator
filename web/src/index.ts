@@ -1,15 +1,16 @@
 import 'reflect-metadata'
-import { ApolloServer, AuthenticationError } from 'apollo-server'
-import { BaseEntity, createConnection } from 'typeorm'
-
+import { ApolloServer, AuthenticationError } from 'apollo-server-express'
 import { auth } from './lib/firebaseAdmin'
+import { BaseEntity, createConnection } from 'typeorm'
+import express from 'express'
 import { typeDefs, resolvers } from './graphql'
 
 const startApp = async (): Promise<void> => {
   const connection = await createConnection()
   BaseEntity.useConnection(connection)
 
-  const server = new ApolloServer({
+  const app = express()
+  const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
     context: async ({ req, res }) => {
@@ -27,10 +28,12 @@ const startApp = async (): Promise<void> => {
       }
     }
   })
-  const port = process.env.PORT ?? 3000
+  const port = process.env.PORT || 3000
+  apolloServer.applyMiddleware({ app })
 
-  const { url } = await server.listen({ port })
-  console.log(`Express server has started on ${url}.`)
+  app.listen(port, () => {
+    console.log(`Express server has started on port ${port}.`)
+  })
 }
 
 startApp().catch(() => {})
