@@ -2,15 +2,12 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "es5",
+      "es6"
     ],
-    "jsx": "react",
-    "noEmit": true,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true
+    "outDir": "./dist",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": [
     "src"

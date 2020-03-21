@@ -1,4 +1,5 @@
 import { ApolloClient } from 'apollo-client'
+import Constants from 'expo-constants'
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { setContext } from 'apollo-link-context'
@@ -17,10 +18,11 @@ const authLink = setContext(async (_, { headers }) => {
 })
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:8080/graphql' // TODO
+  uri: Constants.manifest.extra.apiUrl
 })
 
 export const apolloClient = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  connectToDevTools: process.env.NODE_ENV !== 'production'
 })

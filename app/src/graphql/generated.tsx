@@ -18,14 +18,21 @@ export type Channel = {
   id: Scalars['UUID'],
   name: Scalars['String'],
   notifications: Array<Notification>,
+  public: Scalars['Boolean'],
   secret: Scalars['String'],
   createdAt: Scalars['Timestamp'],
   createdBy: User,
   updatedAt: Scalars['Timestamp'],
 };
 
+export type ChannelNotificationsArgs = {
+  startAfter?: Maybe<Scalars['Timestamp']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
 export type CreateChannelInput = {
   name: Scalars['String'],
+  public: Scalars['Boolean'],
 };
 
 export type Mutation = {
@@ -59,8 +66,30 @@ export type Query = {
   users: Array<User>,
 };
 
+export type QueryChannelsArgs = {
+  name?: Maybe<Scalars['String']>,
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
+export type QueryNotificationsArgs = {
+  startAfter?: Maybe<Scalars['Timestamp']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
+export type QuerySubscribedChannelsArgs = {
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
 export type QueryUserArgs = {
   id: Scalars['String']
+};
+
+export type QueryUsersArgs = {
+  name?: Maybe<Scalars['String']>,
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
 };
 
 export type User = {
@@ -68,9 +97,20 @@ export type User = {
   id: Scalars['String'],
   displayName: Scalars['String'],
   photoURL?: Maybe<Scalars['String']>,
+  createdChannels: Array<Channel>,
   subscribedChannels: Array<Channel>,
   createdAt: Scalars['Timestamp'],
   updatedAt: Scalars['Timestamp'],
+};
+
+export type UserCreatedChannelsArgs = {
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
+};
+
+export type UserSubscribedChannelsArgs = {
+  offset?: Maybe<Scalars['Int']>,
+  limit?: Maybe<Scalars['Int']>
 };
 
 export type GetChannelsQueryVariables = {};
@@ -80,6 +120,16 @@ export type GetChannelsQuery = (
   & { channels: Array<(
     { __typename?: 'Channel' }
     & Pick<Channel, 'id' | 'name' | 'secret' | 'createdAt'>
+  )> }
+);
+
+export type GetCurrentUserQueryVariables = {};
+
+export type GetCurrentUserQuery = (
+  { __typename?: 'Query' }
+  & { currentUser: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'displayName' | 'photoURL'>
   )> }
 );
 
@@ -140,6 +190,40 @@ export function useGetChannelsLazyQuery (baseOptions?: ApolloReactHooks.LazyQuer
 export type GetChannelsQueryHookResult = ReturnType<typeof useGetChannelsQuery>;
 export type GetChannelsLazyQueryHookResult = ReturnType<typeof useGetChannelsLazyQuery>;
 export type GetChannelsQueryResult = ApolloReactCommon.QueryResult<GetChannelsQuery, GetChannelsQueryVariables>;
+export const GetCurrentUserDocument = gql`
+    query GetCurrentUser {
+  currentUser {
+    id
+    displayName
+    photoURL
+  }
+}
+    `
+
+/**
+ * __useGetCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useGetCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCurrentUserQuery (baseOptions?: ApolloReactHooks.QueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>) {
+  return ApolloReactHooks.useQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, baseOptions)
+}
+export function useGetCurrentUserLazyQuery (baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>) {
+  return ApolloReactHooks.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, baseOptions)
+}
+export type GetCurrentUserQueryHookResult = ReturnType<typeof useGetCurrentUserQuery>;
+export type GetCurrentUserLazyQueryHookResult = ReturnType<typeof useGetCurrentUserLazyQuery>;
+export type GetCurrentUserQueryResult = ApolloReactCommon.QueryResult<GetCurrentUserQuery, GetCurrentUserQueryVariables>;
 export const GetNotificationsDocument = gql`
     query GetNotifications {
   notifications {

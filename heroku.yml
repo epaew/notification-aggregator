@@ -1,0 +1,12 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+build:
+  docker:
+    web:
+      dockerfile: Dockerfile.web
+      target: web
+release:
+  image: web
+  command:
+    - yarn run typeorm migration:run

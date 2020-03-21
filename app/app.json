@@ -14,6 +14,9 @@
     ],
     "packagerOpts": {
       "config": "metro.config.js"
+    },
+    "extra": {
+      "apiUrl": "https://notification-aggregator-dev.herokuapp.com/graphql"
     }
   }
 }

@@ -1,0 +1,48 @@
+scalar Timestamp
+scalar UUID
+
+type Query {
+  channels(name: String, offset: Int, limit: Int): [Channel!]!
+  currentUser: User
+  notifications(startAfter: Timestamp, limit: Int): [Notification!]!
+  subscribedChannels(offset: Int, limit: Int): [Channel!]!
+  user(id: String!): User
+  users(name: String, offset: Int, limit: Int): [User!]!
+}
+
+type Mutation {
+  createChannel(input: CreateChannelInput!): Channel!
+  subscribeChannel(channelId: UUID!): Channel!
+}
+
+type Channel {
+  id: UUID!
+  name: String!
+  notifications(startAfter: Timestamp, limit: Int): [Notification!]!
+  public: Boolean!
+  secret: String!
+  createdAt: Timestamp!
+  createdBy: User!
+  updatedAt: Timestamp!
+}
+
+type Notification {
+  id: ID!
+  body: String!
+  createdAt: Timestamp!
+}
+
+type User {
+  id: String!
+  displayName: String!
+  photoURL: String
+  createdChannels(offset: Int, limit: Int): [Channel!]!
+  subscribedChannels(offset: Int, limit: Int): [Channel!]!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+}
+
+input CreateChannelInput {
+  name: String!
+  public: Boolean!
+}

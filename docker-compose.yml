@@ -1,19 +1,20 @@
 version: '3.7'
 
 services:
-  api:
+  web:
     build:
       context: .
-      dockerfile: api/Dockerfile
+      dockerfile: Dockerfile.web
+      target: base
     environment:
       DATABASE_URL: 'postgres://postgres:postgres@db:5432/postgres'
-      GOOGLE_APPLICATION_CREDENTIALS: /app/api/firebase-admin.json
+      GOOGLE_APPLICATION_CREDENTIALS: /app/web/firebase-admin.json
     extra_hosts:
       - "www.googleapis.com:172.217.25.106"
     volumes:
-      - ./api:/app/api
+      - ./web:/app/web
       - ./tsconfig.json:/app/tsconfig.json
-      - node_modules_api:/app/api/node_modules
+      - node_modules_web:/app/web/node_modules
     ports:
       - "8080:3000"
     depends_on:
@@ -26,5 +27,5 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
 volumes:
-  node_modules_api: {}
+  node_modules_web: {}
   pg_data: {}
