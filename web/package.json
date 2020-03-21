@@ -50,7 +50,7 @@
     "migration:revert": "ts-node node_modules/typeorm/cli.js migration:revert",
     "migration:run": "ts-node node_modules/typeorm/cli.js migration:run",
     "start:watch": "nuxt-ts",
-    "start": "nuxt start",
+    "start": "nuxt-ts start",
     "test": "jest"
   }
 }
