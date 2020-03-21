@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "codegen": "graphql-codegen --config codegen.yml",
-    "eslint": "eslint -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx app/src web/src",
-    "eslint:fix": "eslint --fix -c .eslintrc.yml --ext .js,.jsx,.ts,.tsx app/src web/src",
+    "eslint": "eslint --ext .js,.jsx,.ts,.tsx,.vue app/src web/src",
+    "eslint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx,.vue app/src web/src",
     "tsc": "false"
   },
   "workspaces": [
