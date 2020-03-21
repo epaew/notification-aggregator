@@ -11,15 +11,9 @@ module.exports = {
   logging: true,
 
   // place of files
-  entities: [
-    'src/entity/index.ts'
-  ],
-  migrations: [
-    'src/migration/**/*.ts'
-  ],
-  subscribers: [
-    'src/subscriber/**/*.ts'
-  ],
+  entities: ['src/entity/index.ts'],
+  migrations: ['src/migration/**/*.ts'],
+  subscribers: ['src/subscriber/**/*.ts'],
   cli: {
     entitiesDir: 'src/entity',
     migrationsDir: 'src/migration',

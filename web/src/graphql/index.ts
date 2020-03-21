@@ -1,6 +1,6 @@
-import { gql } from 'apollo-server-express'
 import fs from 'fs'
 import path from 'path'
+import { gql } from 'apollo-server-express'
 import * as generated from './generated'
 
 export * from './resolvers'

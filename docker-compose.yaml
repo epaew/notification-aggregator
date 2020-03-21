@@ -14,7 +14,7 @@ services:
     volumes:
       - ./web:/app/web
       - ./tsconfig.json:/app/tsconfig.json
-      - node_modules_web:/app/web/node_modules
+      - /app/web/node_modules
     ports:
       - "8080:3000"
     depends_on:
@@ -27,5 +27,4 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
 volumes:
-  node_modules_web: {}
   pg_data: {}

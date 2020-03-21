@@ -1,2 +1,11 @@
+env:
+  browser: true
+  node: true
+extends:
+  - '@nuxtjs/eslint-config-typescript'
+  - prettier
+  - prettier/vue
 parserOptions:
   project: ./tsconfig.json
+  extraFileExtensions:
+    - .vue
