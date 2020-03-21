@@ -13,20 +13,21 @@ CMD ["yarn", "start:watch"]
 FROM base as builder
 
 COPY web/src ./src
-COPY web/tsconfig.json .
+COPY web/nuxt.config.ts web/ormconfig.ts web/tsconfig.json ./
 COPY tsconfig.json ../
 
-RUN yarn tsc --sourceMap false
-
+RUN yarn build
+RUN yarn tsc nuxt.config.ts
 
 FROM node:12-alpine as web
 
 ENV NODE_ENV=production
 WORKDIR /app/web
 
-COPY --from=builder /app/web/dist dist
-COPY --from=builder /app/web/src/graphql/schema.graphql dist/graphql/
-COPY --from=builder /app/web/package.json /app/web/yarn.lock ./
+COPY --from=builder /app/web/.nuxt .nuxt
+# COPY --from=builder /app/web/src/graphql/schema.graphql dist/graphql/
+COPY --from=builder /app/web/nuxt.config.js /app/web/package.json /app/web/yarn.lock ./
+COPY --from=builder /app/web/src/front/static ./src/front/static
 
 COPY web/ormconfig.heroku.js ormconfig.js
 
