@@ -16,11 +16,11 @@
     "web"
   ],
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.13.0",
+    "@graphql-codegen/cli": "^1.13.1",
     "@graphql-codegen/introspection": "^1.12.2",
     "@graphql-codegen/typescript": "^1.12.2",
     "@graphql-codegen/typescript-operations": "^1.13.0",
-    "@graphql-codegen/typescript-react-apollo": "^1.12.2",
+    "@graphql-codegen/typescript-react-apollo": "^1.13.1",
     "@graphql-codegen/typescript-resolvers": "^1.12.2",
     "@nuxtjs/eslint-config-typescript": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
@@ -35,7 +35,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-standard": "^4.0.1",
-    "expo-cli": "^3.13.8",
+    "expo-cli": "^3.15.4",
     "graphql": "^14.6.0",
     "heroku": "^7.38.2",
     "prettier": "^1.19.1"
