@@ -1,8 +1,9 @@
 import 'reflect-metadata'
 import { ApolloServer, AuthenticationError } from 'apollo-server-express'
-import { auth } from './lib/firebaseAdmin'
 import { BaseEntity, createConnection } from 'typeorm'
 import express from 'express'
+
+import { auth } from './lib/firebaseAdmin'
 import { typeDefs, resolvers } from './graphql'
 
 const startApp = async (): Promise<void> => {
