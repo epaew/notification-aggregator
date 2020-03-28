@@ -3587,10 +3587,10 @@
     shortid "^2.2.15"
     use-subscription "^1.4.0"
 
-"@react-navigation/drawer@^5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-5.1.1.tgz#ae3410c465c013c8f53383c9979baa2676115254"
-  integrity sha512-KuNnpSUnZ8NN17tmNVVl3sYYYtGZMIM5Ral5GhUYTKJLekdGTWiY0lVrb38iobmtnb/hGZHnCLM515B1yTD5bw==
+"@react-navigation/drawer@^5.3.4":
+  version "5.3.4"
+  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-5.3.4.tgz#d82dba9a732b84c7e355b3f234f6346d13e960c7"
+  integrity sha512-Kqqbm4Ge3zcKKIaLZBpLPXf8kFRfi8XFWSWJa5zPlcX0ic+QHZR4T0wS0+PS8EqaXY494wEooV3ZXQ1cYz1Uuw==
   dependencies:
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
@@ -5743,6 +5743,11 @@ brorand@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
   integrity sha1-EsJe/kCkXjwyPrhnWgoM5XsiNx8=
+
+browser-process-hrtime@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/browser-process-hrtime/-/browser-process-hrtime-1.0.0.tgz#3c9b4b7d782c8121e56f10106d84c0d0ffc94626"
+  integrity sha512-9o5UecI3GhkpM6DrXr69PblIuWxPKk9Y0jHBRhdocZ2y7YECBFCsHm79Pr3OyR2AvjhDkabFJaDJMYRazHgsow==
 
 browser-resolve@^1.11.3:
   version "1.11.3"
