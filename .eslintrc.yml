@@ -16,6 +16,7 @@ rules:
   no-return-await: off # is fixed on eslint-config-standard@14.1.1
   prettier/prettier:
     - error
-    - semi: false
-      singleQuote: true
+    - arrowParens: avoid
       jsxSingleQuote: true
+      semi: false
+      singleQuote: true
