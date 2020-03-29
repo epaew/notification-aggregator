@@ -3,24 +3,24 @@ import { snakeCase } from 'typeorm/util/StringUtils'
 import pluralize from 'pluralize'
 
 export class NamingStrategy extends DefaultNamingStrategy {
-  tableName(entityName: string, customName: string) {
-    return customName || pluralize(snakeCase(entityName))
+  tableName(entityName: string, customName: string): string {
+    return customName ?? pluralize(snakeCase(entityName))
   }
 
   columnName(
     propertyName: string,
     customName: string,
     embeddedPrefixes: string[]
-  ) {
-    const baseName = customName || snakeCase(propertyName)
+  ): string {
+    const baseName = customName ?? snakeCase(propertyName)
     return [...embeddedPrefixes.slice(), baseName].join('_')
   }
 
-  relationName(propertyName: string) {
+  relationName(propertyName: string): string {
     return snakeCase(propertyName)
   }
 
-  joinColumnName(relationName: string, referencedColumnName: string) {
+  joinColumnName(relationName: string, referencedColumnName: string): string {
     return snakeCase(relationName + '_' + referencedColumnName)
   }
 
@@ -28,7 +28,7 @@ export class NamingStrategy extends DefaultNamingStrategy {
     firstTableName: string,
     _secondTableName: string,
     firstPropertyName: string
-  ) {
+  ): string {
     return snakeCase(
       `${pluralize.singular(firstTableName)}_${firstPropertyName}`
     )
@@ -38,8 +38,10 @@ export class NamingStrategy extends DefaultNamingStrategy {
     tableName: string,
     propertyName: string,
     columnName?: string
-  ) {
-    return `${snakeCase(pluralize.singular(tableName))}_${columnName ??
-      propertyName}`
+  ): string {
+    const prefix = snakeCase(pluralize.singular(tableName))
+    const suffix = columnName ?? propertyName
+
+    return `${prefix}_${suffix}`
   }
 }

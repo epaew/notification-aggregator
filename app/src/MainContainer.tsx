@@ -6,7 +6,7 @@ import {
   AuthenticationStack,
   ChannelStack,
   NotificationStack,
-  LoadingScreen
+  LoadingScreen,
 } from './screens'
 import { DrawerContent } from './components/DrawerContent'
 import { useFirebase } from './contexts'

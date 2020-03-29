@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm'
 import { Channel } from '.'
 
@@ -17,11 +17,10 @@ export class Notification extends BaseEntity {
   @Column({ type: 'text' })
   body!: string
 
-  @ManyToOne(
-    () => Channel,
-    channel => channel.notifications,
-    { eager: true, nullable: false }
-  )
+  @ManyToOne(() => Channel, channel => channel.notifications, {
+    eager: true,
+    nullable: false,
+  })
   channel!: Channel
 
   @CreateDateColumn({ type: 'timestamp with time zone' })

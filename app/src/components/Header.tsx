@@ -11,7 +11,7 @@ interface NavigationIconProps {
 export const createHeader = (showMenuIcon = true) => {
   const NavigationIcon: React.FC<NavigationIconProps> = ({
     navigation,
-    previous
+    previous,
   }) => {
     if (previous) {
       return (
@@ -39,7 +39,7 @@ export const createHeader = (showMenuIcon = true) => {
   const MyHeader: React.FC<StackHeaderProps> = ({
     navigation,
     previous,
-    scene
+    scene,
   }) => {
     const title = scene.descriptor.options.title ?? scene.route.name
 
@@ -50,7 +50,7 @@ export const createHeader = (showMenuIcon = true) => {
         }
         centerComponent={{
           text: title,
-          style: { color: '#fff', fontWeight: 'bold' }
+          style: { color: '#fff', fontWeight: 'bold' },
         }} // TODO: アイコン画像か何かに差し替える
       />
     )

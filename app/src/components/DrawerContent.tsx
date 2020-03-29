@@ -2,7 +2,7 @@ import React from 'react'
 import { Avatar, AvatarProps, ListItem, Text } from 'react-native-elements'
 import {
   DrawerContentComponentProps,
-  DrawerContentScrollView
+  DrawerContentScrollView,
 } from '@react-navigation/drawer'
 import { View } from 'react-native'
 
@@ -14,7 +14,7 @@ const ProfileSummary: React.FC = () => {
   const avatarProps: AvatarProps = {
     showEditButton: true,
     size: 'medium',
-    rounded: true
+    rounded: true,
   }
 
   const { data, error, loading } = useGetCurrentUserQuery()

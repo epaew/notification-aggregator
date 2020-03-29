@@ -12,17 +12,17 @@ const authLink = setContext(async (_, { headers }) => {
   return {
     headers: {
       ...headers,
-      Authorization: token ? `Bearer ${token}` : ''
-    }
+      Authorization: token ? `Bearer ${token}` : '',
+    },
   }
 })
 
 const httpLink = createHttpLink({
-  uri: Constants.manifest.extra.apiUrl
+  uri: Constants.manifest.extra.apiUrl,
 })
 
 export const apolloClient = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
-  connectToDevTools: process.env.NODE_ENV !== 'production'
+  connectToDevTools: process.env.NODE_ENV !== 'production',
 })

@@ -2,7 +2,7 @@ import React from 'react'
 import {
   CommonActions,
   DrawerActions,
-  DrawerNavigationState
+  DrawerNavigationState,
 } from '@react-navigation/native'
 import { ListItem } from 'react-native-elements'
 
@@ -12,7 +12,7 @@ interface DrawerItemListProps {
 }
 export const DrawerItemList: React.FC<DrawerItemListProps> = ({
   navigation,
-  state
+  state,
 }) => {
   const items = state.routes.map((route, i) => {
     const focused = i === state.index

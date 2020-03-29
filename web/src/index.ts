@@ -27,7 +27,7 @@ const startApp = async (): Promise<void> => {
         console.error(e)
         throw new AuthenticationError('Invalid token')
       }
-    }
+    },
   })
   const port = process.env.PORT ?? 3000
   apolloServer.applyMiddleware({ app })

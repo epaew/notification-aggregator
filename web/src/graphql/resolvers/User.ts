@@ -15,7 +15,7 @@ export const currentUser: QueryResolvers['currentUser'] = async (
   user = Object.assign(new User(), {
     id: firebaseUser.uid,
     displayName: firebaseUser.name ?? 'Anonymous User',
-    photoURL: firebaseUser.picture
+    photoURL: firebaseUser.picture,
   })
   return await user.save()
 }
@@ -29,6 +29,6 @@ export const users: QueryResolvers['users'] = async (
     where: name ? { displayName: Like(`%${name}%`) } : undefined,
     order: { displayName: 'ASC' },
     skip: offset,
-    take: limit
+    take: limit,
   })
 }

@@ -13,7 +13,7 @@ interface AuthenticationFormProps {
 }
 
 export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
-  buttonProps
+  buttonProps,
 }) => {
   const { errors, handleSubmit, register, setValue } = useForm<
     SignInWithEmailProps
@@ -31,8 +31,8 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
               required: 'Email is required',
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: 'Invalid email address'
-              }
+                message: 'Invalid email address',
+              },
             }
           )
         }

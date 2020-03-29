@@ -14,7 +14,7 @@ export const channels: QueryResolvers['channels'] = async (
     where,
     order: { name: 'ASC' },
     skip: offset,
-    take: limit
+    take: limit,
   })
 }
 

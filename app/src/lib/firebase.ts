@@ -15,13 +15,13 @@ export interface SignInWithEmailProps {
 export const auth = firebase.auth()
 export const signUpWithEmail = async ({
   email,
-  password
+  password,
 }: SignInWithEmailProps) =>
   await auth.createUserWithEmailAndPassword(email, password)
 export const signIn = {
   asAnonymous: async () => await auth.signInAnonymously(),
   withEmail: async ({ email, password }: SignInWithEmailProps) =>
     await auth.signInWithEmailAndPassword(email, password),
-  withGithub: async () => await auth.signInWithRedirect(githubProvider)
+  withGithub: async () => await auth.signInWithRedirect(githubProvider),
 }
 export const signOut = async () => await auth.signOut()

@@ -10,7 +10,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm'
 
 import { Notification, User } from '.'
@@ -26,27 +26,20 @@ export class Channel extends BaseEntity {
   @Column({ default: false })
   public!: boolean
 
-  @OneToMany(
-    () => Notification,
-    notification => notification.channel
-  )
+  @OneToMany(() => Notification, notification => notification.channel)
   notifications!: Notification[]
 
   @Index({ unique: true })
   @Column()
   secret!: string
 
-  @ManyToMany(
-    () => User,
-    user => user.subscribedChannels
-  )
+  @ManyToMany(() => User, user => user.subscribedChannels)
   subscribedUsers!: User[]
 
-  @ManyToOne(
-    () => User,
-    user => user.createdChannels,
-    { eager: true, nullable: false }
-  )
+  @ManyToOne(() => User, user => user.createdChannels, {
+    eager: true,
+    nullable: false,
+  })
   createdBy!: User
 
   @CreateDateColumn({ type: 'timestamp with time zone' })

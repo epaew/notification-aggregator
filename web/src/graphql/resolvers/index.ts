@@ -8,9 +8,9 @@ export const resolvers: Resolvers = {
     channels,
     currentUser,
     user,
-    users
+    users,
   },
   Mutation: {
-    createChannel
-  }
+    createChannel,
+  },
 }

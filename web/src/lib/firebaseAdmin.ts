@@ -6,7 +6,7 @@ if (FIREBASE_CONFIG) {
   firebaseAdmin.initializeApp()
 } else {
   firebaseAdmin.initializeApp({
-    credential: firebaseAdmin.credential.applicationDefault()
+    credential: firebaseAdmin.credential.applicationDefault(),
   })
 }
 

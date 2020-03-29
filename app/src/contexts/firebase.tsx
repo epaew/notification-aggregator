@@ -6,7 +6,7 @@ import {
   SignInWithEmailProps,
   signUpWithEmail,
   signIn,
-  signOut
+  signOut,
 } from '../lib/firebase'
 
 interface FirebaseContextType {
@@ -27,7 +27,7 @@ const initialFirebaseContext = {
   currentAuth: null,
   signUpWithEmail,
   signIn,
-  signOut
+  signOut,
 }
 const FirebaseContext = React.createContext<FirebaseContextType>(
   initialFirebaseContext
@@ -44,7 +44,7 @@ export const FirebaseProvider: React.FC = ({ children }) => {
       setContext({
         ...context,
         loading: false,
-        currentAuth: result
+        currentAuth: result,
       })
     )
   }, [])
