@@ -8,10 +8,10 @@ const config: Configuration = {
     babel: {
       plugins: [
         '@babel/plugin-proposal-nullish-coalescing-operator',
-        '@babel/plugin-proposal-optional-chaining'
+        '@babel/plugin-proposal-optional-chaining',
       ],
-      presets: [['@nuxt/babel-preset-app', { corejs: { version: 3 } }]]
-    }
+      presets: [['@nuxt/babel-preset-app', { corejs: { version: 3 } }]],
+    },
   },
   /*
    ** Nuxt.js dev-modules
@@ -20,7 +20,7 @@ const config: Configuration = {
     '@nuxt/typescript-build',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
   ],
   /*
    ** Global CSS
@@ -38,10 +38,10 @@ const config: Configuration = {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description ?? ''
-      }
+        content: process.env.npm_package_description ?? '',
+      },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
    ** Customize the progress-bar color
@@ -63,8 +63,9 @@ const config: Configuration = {
    ** Nuxt.js server configuration
    */
   server: {
-    host: '0.0.0.0'
+    host: '0.0.0.0',
   },
+  serverMiddleware: ['@@/src/index'],
   /*
    ** Nuxt.js src directory
    */
@@ -74,8 +75,8 @@ const config: Configuration = {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss']
-  }
+    customVariables: ['~/assets/variables.scss'],
+  },
 }
 
 export default config
