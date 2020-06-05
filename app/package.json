@@ -30,7 +30,7 @@
     "graphql": "^14.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-hook-form": "^5.0.0",
+    "react-hook-form": "^5.7.2",
     "react-native": "^0.61.4",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.6.1",
