@@ -27,7 +27,7 @@
     "expo": "^36.0.0",
     "expo-constants": "^8.0.0",
     "firebase": "^7.14.1",
-    "graphql": "^14.6.0",
+    "graphql": "^15.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^5.0.0",
